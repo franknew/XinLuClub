@@ -1,0 +1,67 @@
+<nz-modal [nzVisible]="isOpen" [nzTitle]="'更新我的资料'" [nzContent]="updateprofile" (nzOnOk)="save()" (nzOnCancel)="close()" [nzConfirmLoading]="loading"></nz-modal>
+<ng-template #updateprofile>
+    <form nz-form [formGroup]="validateForm">
+        <div nz-row>
+            <div nz-col nz-form-label [nzSpan]="4">
+                <label>用户名</label>
+            </div>
+            <div nz-form-control nz-col nzHasFeedback [nzSpan]="20">
+                <span>{{user.Name}}</span>
+            </div>
+
+        </div>
+        <br>
+
+        <div nz-row>
+            <div nz-col nz-form-label [nzSpan]="4 ">
+                <label>姓名</label>
+            </div>
+            <div nz-form-control nz-col nzHasFeedback [nzSpan]="20">
+                <nz-input formControlName="realName" [(ngModel)]="user.RealName" [nzId]="'realName'"></nz-input>
+            </div>
+        </div>
+        <br>
+
+        <div nz-row>
+            <div nz-col nz-form-label [nzSpan]="4 ">
+                <label>性别</label>
+            </div>
+            <div nz-form-control nz-col nzHasFeedback [nzSpan]="20">
+                <nz-select formControlName="gender" [(ngModel)]="user.Gender">
+                    <nz-option [nzLabel]="'男'" [nzValue]="1"></nz-option>
+                    <nz-option [nzLabel]="'女'" [nzValue]="0"></nz-option>
+                </nz-select>
+            </div>
+        </div>
+        <br>
+
+        <div nz-row>
+            <div nz-col nz-form-label [nzSpan]="4 ">
+                <label>身份证</label>
+            </div>
+            <div nz-form-control nz-col nzHasFeedback [nzSpan]="20">
+                <nz-input formControlName="identitycode" [(ngModel)]="user.IdentityCode" [nzId]="'identitycode'"></nz-input>
+            </div>
+        </div>
+        <br>
+
+        <div nz-row>
+            <div nz-col nz-form-label [nzSpan]="4 ">
+                <label>联系电话</label>
+            </div>
+            <div nz-form-control nz-col nzHasFeedback [nzSpan]="20">
+                <nz-input formControlName="mobile" [nzId]="'mobile'" [(ngModel)]="user.Mobile"></nz-input>
+            </div>
+        </div>
+        <br>
+
+        <div nz-row>
+            <div nz-col nz-form-label [nzSpan]="4 ">
+                <label>微信</label>
+            </div>
+            <div nz-form-control nz-col nzHasFeedback [nzSpan]="20">
+                <nz-input formControlName="weixin" [nzId]="'weixin'" [(ngModel)]="user.WeiXin"></nz-input>
+            </div>
+        </div>
+    </form>
+</ng-template>

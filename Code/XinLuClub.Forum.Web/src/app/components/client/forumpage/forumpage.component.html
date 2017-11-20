@@ -1,0 +1,8 @@
+<nz-layout>
+    <nz-sider [nzWidth]="200" style="background:#fff;">
+        <topicgroupmenu #menu [SelectedMenuID]="selectedMenuID" [Records]="boards" (OnMenuClick)="getActiveTopicList($event)"></topicgroupmenu>
+    </nz-sider>
+    <nz-content style="background:#fff;padding-right:10px;">
+        <router-outlet name="forum"></router-outlet>
+    </nz-content>
+</nz-layout>

@@ -1,0 +1,73 @@
+<div nz-row style="padding-top:50px;">
+    <div nz-row class="panel-body">
+        <div nz-col [nzSpan]="1" class="text-left">
+            <button nz-button (click)="toggleEdit(true)">新增</button>
+        </div>
+
+    </div>
+    <nz-table [nzDataSource]="records" [nzIsPagination]="false" [nzLoading]="loading" nzShowTotal>
+        <thead nz-thead class="thead-inverse">
+            <tr>
+                <th nz-th style="width:25%;">版块名称</th>
+                <th nz-th style="width:25%;">是否可用</th>
+                <th nz-th style="width:25%;">操作</th>
+            </tr>
+        </thead>
+        <tbody nz-tbody>
+            <tr nz-tbody-tr *ngFor="let item of records">
+                <td nz-td>{{item.Name}}</td>
+                <td nz-td>
+                    <label nz-checkbox [nzDisabled]="true" [ngModel]="item.Enabled">
+                    </label>
+                </td>
+                <td nz-td>
+                    <a (click)="toggleEdit(true, item)">编辑</a> | <a (click)="toggleDelete(true, item)">删除</a>
+                </td>
+            </tr>
+        </tbody>
+    </nz-table>
+</div>
+<!--删除版块-->
+<nz-modal [nzVisible]="displayDelete" [nzTitle]="'删除版块'" [nzContent]="delete" (nzOnOk)="delete()" (nzOnCancel)="toggleDelete(false)" [nzConfirmLoading]="deleteLoading">
+</nz-modal>
+<ng-template #delete>
+    <span>是否删除版块?</span>
+</ng-template>
+
+<nz-modal [nzVisible]="displayEdit" [nzTitle]="'编辑板块'" [nzContent]="edit" (nzOnOk)="save()" (nzOnCancel)="toggleEdit(false)" [nzConfirmLoading]="editLoading">
+</nz-modal>
+<ng-template #edit>
+    <form nz-form [formGroup]="validateForm">
+        <div nz-row>
+            <div nz-col nz-form-label [nzSpan]="4 ">
+                <label nz-form-item-required>板块名称</label>
+            </div>
+            <div nz-form-control nz-col nzHasFeedback [nzSpan]="20">
+                <nz-input formControlName="name" [(ngModel)]="name" [nzId]="'name'"></nz-input>
+                <div style="color:red" nz-form-explain *ngIf="getFormControl('name').dirty&&getFormControl('name').hasError('required')">请输入版块名称</div>
+            </div>
+        </div>
+        <br>
+
+        <div nz-row>
+            <div nz-col nz-form-label [nzSpan]="4 ">
+                <label>描述</label>
+            </div>
+            <div nz-form-control nz-col nzHasFeedback [nzSpan]="20">
+                <nz-input formControlName="description" [nzType]="'textarea'" [(ngModel)]="description" [nzId]="'description'"></nz-input>
+            </div>
+        </div>
+        <br>
+        <div nz-row>
+            <div nz-col nz-form-label [nzSpan]="4 ">
+                <label>是否启用</label>
+            </div>
+            <div nz-form-control nz-col nzHasFeedback [nzSpan]="20">
+                <nz-switch formControlName="enabled" [ngModel]="enabled">
+                    <i class=" anticon anticon-check" checked></i>
+                    <i class=" anticon anticon-cross" unchecked></i>
+                </nz-switch>
+            </div>
+        </div>
+    </form>
+</ng-template>

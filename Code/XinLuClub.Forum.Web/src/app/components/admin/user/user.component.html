@@ -1,0 +1,179 @@
+<div nz-row style="padding-top:50px;">
+    <div nz-row class="panel-body">
+        <div nz-col [nzSpan]="1">
+            <span>用户名</span>
+        </div>
+        <div nz-col [nzSpan]="4">
+            <nz-input [(ngModel)]="searchName"></nz-input>
+        </div>
+        <div nz-col [nzSpan]="1">
+        </div>
+        <div nz-col [nzSpan]="1">
+            <span>联系电话</span>
+        </div>
+        <div nz-col [nzSpan]="4">
+            <nz-input [(ngModel)]="searchMobile"></nz-input>
+        </div>
+        <div nz-col [nzSpan]="1">
+        </div>
+
+        <div nz-col [nzSpan]="1" class="text-left">
+            <button nz-button (click)="getUserList()">查询</button>
+        </div>
+        <div nz-col [nzSpan]="1" class="text-left">
+            <button nz-button (click)="toggleEditUser(true, null)">新增</button>
+        </div>
+
+    </div>
+    <br>
+    <nz-table [nzDataSource]="records" [nzIsPagination]="false" [nzLoading]="loading" nzShowTotal>
+        <thead nz-thead class="thead-inverse">
+            <tr>
+                <th nz-th style="width:15%;">用户名</th>
+                <th nz-th style="width:15%;">姓名</th>
+                <th nz-th style="width:25%;">身份证</th>
+                <th nz-th style="width:15%;">联系电话</th>
+                <th nz-th style="width:15%;">微信</th>
+                <th nz-th style="width:15%;">操作</th>
+            </tr>
+        </thead>
+        <tbody nz-tbody>
+            <tr nz-tbody-tr *ngFor="let item of records">
+                <td nz-td>{{item.Name}}</td>
+                <td nz-td>{{item.RealName}}</td>
+                <td nz-td>{{item.IdentityCode}}</td>
+                <td nz-td>{{item.Mobile}}</td>
+                <td nz-td>{{item.WeiXin}}</td>
+                <td nz-td>
+                    <a (click)="toggleResetPassword(true, item)">重置密码</a> | <a (click)="toggleEditUser(true, item)">编辑</a> | <a (click)="toggleDeleteUser(true, item)">删除</a>
+                </td>
+            </tr>
+        </tbody>
+    </nz-table>
+    <nz-pagination *ngIf="records.length>0" [nzTotal]="recordCount" [nzPageIndex]="currentPageIndex" (nzPageIndexClickChange)="pageIndexChanged($event)" [nzPageSize]="pageSize"></nz-pagination>
+</div>
+<!--重置密码-->
+<nz-modal [nzVisible]="displayResetPassword" [nzTitle]="'重置密码'" [nzContent]="resetPassword" (nzOnOk)="savePassword()" (nzOnCancel)="toggleResetPassword(false)" [nzConfirmLoading]="resetPasswordLoading">
+</nz-modal>
+<ng-template #resetPassword>
+    <div nz-row>
+        <div nz-col [nzSpan]="4">
+            <span>请设置新密码</span>
+        </div>
+        <div nz-col [nzSpan]="20">
+            <nz-input [(ngModel)]="password" nzType="password"></nz-input>
+        </div>
+    </div>
+</ng-template>
+<!--删除用户-->
+<nz-modal [nzVisible]="displayDelete" [nzTitle]="'删除用户'" [nzContent]="deleteUser" (nzOnOk)="deleteUser()" (nzOnCancel)="toggleDeleteUser(false)" [nzConfirmLoading]="deleteUserLoading">
+</nz-modal>
+<ng-template #deleteUser>
+    <span>是否删除用户?</span>
+</ng-template>
+<!--编辑用户-->
+<nz-modal [nzVisible]="displayEditUser" [nzTitle]="'编辑用户'" [nzContent]="editUser" (nzOnOk)="saveUser()" (nzOnCancel)="toggleEditUser(false)" [nzConfirmLoading]="editUserLoading">
+</nz-modal>
+<ng-template #editUser>
+    <form nz-form (ngSubmit)="saveUser()" [formGroup]="validateForm" #form="ngForm">
+        <div nz-row>
+            <div nz-col nz-form-label [nzSpan]="4">
+                <label nz-form-item-required>用户名</label>
+            </div>
+            <div nz-form-control nz-col nzHasFeedback [nzSpan]="20">
+                <nz-input formControlName="name" [(ngModel)]="name" [nzId]="'realName'" [nzDisabled]="editMode === 2"></nz-input>
+                <div style="color:red" nz-form-explain *ngIf="getFormControl('name').dirty&&getFormControl('name').hasError('required')">请输入用户名</div>
+            </div>
+        </div>
+        <br>
+        <div nz-row>
+            <div nz-col nz-form-label [nzSpan]="4">
+                <label for="boards" nz-form-item-required>可见板块</label>
+            </div>
+            <div nz-form-control nz-col nzHasFeedback [nzSpan]="20">
+                <nz-select [(ngModel)]="userBoards" [nzMode]="'multiple'" [nzPlaceHolder]="'请选择板块'" formControlName="boards">
+                    <nz-option *ngFor="let item of boards" [nzLabel]="item.Name" [nzValue]="item.ID">
+
+                    </nz-option>
+                </nz-select>
+                <div style="color:red" nz-form-explain *ngIf="getFormControl('boards').dirty&&getFormControl('boards').hasError('required')">请选择用户可以看见的板块</div>
+            </div>
+        </div>
+        <br>
+        <div nz-row>
+            <div nz-col nz-form-label [nzSpan]="4 ">
+                <label>姓名</label>
+            </div>
+            <div nz-form-control nz-col nzHasFeedback [nzSpan]="20">
+                <nz-input formControlName="realName" [(ngModel)]="realName" [nzId]="'realName'"></nz-input>
+            </div>
+        </div>
+        <br>
+
+        <div nz-row>
+            <div nz-col nz-form-label [nzSpan]="4 ">
+                <label>性别</label>
+            </div>
+            <div nz-form-control nz-col nzHasFeedback [nzSpan]="20">
+                <nz-select formControlName="gender" [(ngModel)]="gender">
+                    <nz-option [nzLabel]="'男'" [nzValue]="1"></nz-option>
+                    <nz-option [nzLabel]="'女'" [nzValue]="0"></nz-option>
+                </nz-select>
+            </div>
+        </div>
+        <br>
+
+        <div nz-row>
+            <div nz-col nz-form-label [nzSpan]="4 ">
+                <label>身份证</label>
+            </div>
+            <div nz-form-control nz-col nzHasFeedback [nzSpan]="20">
+                <nz-input formControlName="identitycode" [(ngModel)]="identityCode" [nzId]="'identitycode'"></nz-input>
+            </div>
+        </div>
+        <br>
+
+        <div nz-row>
+            <div nz-col nz-form-label [nzSpan]="4 ">
+                <label>联系电话</label>
+            </div>
+            <div nz-form-control nz-col nzHasFeedback [nzSpan]="20">
+                <nz-input formControlName="mobile" [nzId]="'mobile'" [(ngModel)]="mobile"></nz-input>
+            </div>
+        </div>
+
+        <br>
+        <div nz-row>
+            <div nz-col nz-form-label [nzSpan]="4 ">
+                <label>微信</label>
+            </div>
+            <div nz-form-control nz-col nzHasFeedback [nzSpan]="20">
+                <nz-input formControlName="weixin" [nzId]="'weixin'" [(ngModel)]="weixin"></nz-input>
+            </div>
+        </div>
+        <br>
+        <div nz-row>
+            <div nz-col nz-form-label [nzSpan]="4 ">
+                <label>是否管理员</label>
+            </div>
+            <div nz-form-control nz-col nzHasFeedback [nzSpan]="20">
+                <nz-switch formControlName="isAdmin" [ngModel]="isAdmin">
+                    <i class=" anticon anticon-check" checked></i>
+                    <i class=" anticon anticon-cross" unchecked></i>
+                </nz-switch>
+            </div>
+        </div>
+        <br>
+        <div nz-row>
+            <div nz-col nz-form-label [nzSpan]="4 ">
+                <label>是否启用</label>
+            </div>
+            <div nz-form-control nz-col nzHasFeedback [nzSpan]="20">
+                <nz-switch formControlName="enabled" [ngModel]="enabled">
+                    <i class=" anticon anticon-check" checked></i>
+                    <i class=" anticon anticon-cross" unchecked></i>
+                </nz-switch>
+            </div>
+        </div>
+    </form>
+</ng-template>

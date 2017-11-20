@@ -1,0 +1,48 @@
+<ng-template #title>
+    <div>
+        <h4><span>登录</span></h4>
+    </div>
+</ng-template>
+<ng-template #content>
+    <div nz-row>
+        <strong><h5>欢迎来到芯路俱乐部</h5></strong>
+    </div>
+    <br>
+    <div nz-row>
+        <nz-alert *ngIf="errorMessage" [nzType]="'error'" [nzMessage]="'发生错误'" [nzDescription]="errorMessage" [nzShowIcon]="'true'"></nz-alert>
+    </div>
+    <br>
+    <div nz-row>
+        <div nz-col [nzSpan]="3">
+            <span>用户</span>
+        </div>
+        <div nz-col [nzSpan]="18">
+            <nz-input [(ngModel)]="userName" [nzPlaceHolder]="'请输入用户名'">
+                <ng-template #prefix>
+                    <i class="anticon anticon-user"></i>
+                </ng-template>
+            </nz-input>
+        </div>
+    </div>
+    <br>
+    <div nz-row>
+        <div nz-col [nzSpan]="3">
+            <span>密码</span>
+        </div>
+        <div nz-col [nzSpan]="18">
+            <nz-input [(ngModel)]="password" nzType="password" [nzPlaceHolder]="'请输入密码'">
+
+                <ng-template #prefix>
+                    <i class="anticon anticon-key"></i>
+                </ng-template>
+            </nz-input>
+        </div>
+    </div>
+</ng-template>
+<ng-template #footer>
+    <div class="text-center">
+        <button nz-button [nzType]="'primary'" [nzSize]="'large'" (click)="login()" [nzLoading]="loginLoading">
+            登录
+        </button>
+    </div>
+</ng-template>

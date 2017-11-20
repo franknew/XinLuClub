@@ -1,0 +1,22 @@
+<div class="navbar navbar-default navbar-fixed-top" style="z-index:100;">
+    <div class="navbar-header">
+        <a (click)="gotoForum()" class="navbar-brand">芯路俱乐部</a>
+        <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+    </div>
+    <div>
+        <ul class="nav navbar-nav navbar-right" style="margin-right:100px;">
+            <li *ngIf="isAdmin==1"><a (click)="gotoAdmin()">管理端</a></li>
+            <li><a (click)="tplPublishTopic.open()">发布信息</a></li>
+            <li><a (click)="myprofile.showDialog()">我的资料</a></li>
+            <li><a (click)="changemypassword.showDialog()">修改密码</a></li>
+            <li><a (click)="logout()">注销</a></li>
+        </ul>
+    </div>
+</div>
+<publishtopic #tplPublishTopic [Boards]="boards" [SelectedMenuID]="selectedMenuID"></publishtopic>
+<changemypassword #changemypassword></changemypassword>
+<myprofile #myprofile></myprofile>

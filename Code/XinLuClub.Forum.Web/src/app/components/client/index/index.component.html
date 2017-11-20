@@ -1,0 +1,8 @@
+<nz-layout class="layout">
+    <nz-header style="background: #fff">
+        <head-banner [Boards]="boards" [SelectedMenuID]="newesttopic.selectedMenuID"></head-banner>
+    </nz-header>
+    <nz-content>
+        <forumpage #newesttopic [CurrentPageIndex]="currentPageIndex" [RecordCount]="recordCount" [Records]="records" [Boards]="boards"></forumpage>
+    </nz-content>
+</nz-layout>

@@ -1,0 +1,22 @@
+<div class="navbar navbar-default navbar-fixed-top" style="z-index:100;">
+    <div class="navbar-header">
+        <a (click)="gotoForum()" class="navbar-brand">芯路俱乐部</a>
+        <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                </button>
+    </div>
+    <div>
+        <ul class="nav navbar-nav ">
+            <li><a [routerLink]="[{ outlets: { admin: ['userlist'] } }]">用户管理</a></li>
+            <li><a [routerLink]="[{ outlets: { admin: ['boardlist'] } }]">版块管理</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right" style="margin-right:100px;">
+            <li><a (click)="gotoForum()">前往论坛</a></li>
+            <li><a (click)="myprofile.showDialog()">我的资料</a></li>
+            <li><a (click)="logout()">注销</a></li>
+        </ul>
+    </div>
+</div>
+<myprofile #myprofile></myprofile>

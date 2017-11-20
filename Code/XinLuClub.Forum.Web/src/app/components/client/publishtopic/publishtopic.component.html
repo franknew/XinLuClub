@@ -1,0 +1,42 @@
+<ng-template #title>
+    <div>
+        <h4><span>发布信息</span></h4>
+    </div>
+</ng-template>
+
+<ng-template #content>
+
+    <form nz-form [formGroup]="validateForm">
+        <div nz-row>
+            <nz-alert *ngIf="errorMessage" [nzType]="'error'" [nzCloseable]="'true'" [nzMessage]="'错误信息'" [nzDescription]="errorMessage"></nz-alert>
+        </div>
+        <div nz-row>
+            <label nz-form-item-required>板块</label>
+            <nz-select formControlName="boardID" [(ngModel)]="boardID">
+                <nz-option *ngFor="let option of boards" [nzLabel]="option.Name" [nzValue]="option.ID">
+                </nz-option>
+            </nz-select>
+            <div style="color:red" nz-form-explain *ngIf="getFormControl('boardID').dirty&&getFormControl('boardID').hasError('required')">请选择版块</div>
+        </div>
+        <div nz-row>
+            <label nz-form-item-required>标题</label>
+            <nz-input formControlName="topicTitle" [(ngModel)]="topicTitle" [nzPlaceHolder]="'请输入你要发布的标题'"></nz-input>
+            <div style="color:red" nz-form-explain *ngIf="getFormControl('topicTitle').dirty&&getFormControl('topicTitle').hasError('required')">请输入标题</div>
+        </div>
+        <div nz-row>
+            <label nz-form-item-required>内容</label>
+        </div>
+        <div nz-row>
+            <quill-editor formControlName="topicContent" [(ngModel)]="topicContent" [Height]="'500'" [options]="editorOptions" [Modules]="defaultModules"></quill-editor>
+            <div style="color:red" nz-form-explain *ngIf="getFormControl('topicContent').dirty&&getFormControl('topicContent').hasError('required')">请输入要发布的信息</div>
+        </div>
+    </form>
+</ng-template>
+
+<ng-template #footer>
+    <div class="text-center">
+        <button nz-button [nzType]="'primary'" [nzSize]="'large'" (click)="publish()" [nzLoading]="saveLoading">
+            发布
+        </button>
+    </div>
+</ng-template>

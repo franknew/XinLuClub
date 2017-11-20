@@ -1,0 +1,12 @@
+<ul nz-menu [nzMode]="'inline'" style="height:100%">
+    <span>
+    <li nz-menu-item style="font-size:20px;" [nzSelected]="selectedMenuID=='-1'">
+        <a [routerLink]="[{ outlets: { forum: ['activelist'] } }]">热帖跟踪</a>
+    </li>
+    </span>
+    <span *ngFor="let item of records">
+    <li [nzSelected]="selectedMenuID == item.ID"  nz-menu-item style="font-size:20px;">
+        <a [routerLink]="[{ outlets: { forum: ['topiclist', item.ID] } }]">{{item.Name}}</a>
+    </li>
+    </span>
+</ul>
