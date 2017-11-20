@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="User_TopicGroup" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+  <alias>
+    <typeAlias alias="User_TopicGroup" type="XinLuClub.Forum.DLL.Entity.User_TopicGroup" />
+    <typeAlias alias="User_TopicGroupQueryForm" type="XinLuClub.Forum.DLL.Form.User_TopicGroupQueryForm" />
+    <typeAlias alias="User_TopicGroupUpdateForm" type="XinLuClub.Forum.DLL.Form.User_TopicGroupUpdateForm" />
+  </alias>
+  <statements>
+  <select id="Query" resultClass="User_TopicGroup" parameterClass="User_TopicGroupQueryForm">
+    SELECT * FROM [User_TopicGroup]
+    <dynamic prepend="WHERE">
+    <isNotEmpty prepend="AND" property="ID">
+        [ID]=#ID#
+    </isNotEmpty>
+    
+        <isNotEmpty prepend="AND"  property="IDs">
+        <iterate property="IDs" open="(" close=")" conjunction="OR">
+         [ID]=#IDs[]#
+        </iterate>
+    </isNotEmpty>
+    <isNotEmpty prepend="AND" property="UserID">
+        [UserID]=#UserID#
+    </isNotEmpty>
+    
+        <isNotEmpty prepend="AND"  property="UserIDs">
+        <iterate property="UserIDs" open="(" close=")" conjunction="OR">
+         [UserID]=#UserIDs[]#
+        </iterate>
+    </isNotEmpty>
+    <isNotEmpty prepend="AND" property="TopicGroupID">
+        [TopicGroupID]=#TopicGroupID#
+    </isNotEmpty>
+    
+        <isNotEmpty prepend="AND"  property="TopicGroupIDs">
+        <iterate property="TopicGroupIDs" open="(" close=")" conjunction="OR">
+         [TopicGroupID]=#TopicGroupIDs[]#
+        </iterate>
+    </isNotEmpty>
+    </dynamic>
+  </select>
+  <insert id="Add" parameterClass="User_TopicGroup">
+  INSERT INTO [User_TopicGroup]
+  (
+  <dynamic prepend=" ">
+    <isNotNull prepend="," property="ID">
+    [ID]
+    </isNotNull>
+    <isNotNull prepend="," property="UserID">
+    [UserID]
+    </isNotNull>
+    <isNotNull prepend="," property="TopicGroupID">
+    [TopicGroupID]
+    </isNotNull>
+  </dynamic>
+  )
+  VALUES
+  (
+  <dynamic prepend=" ">
+    <isNotNull prepend="," property="ID">
+    #ID#
+    </isNotNull>
+    <isNotNull prepend="," property="UserID">
+    #UserID#
+    </isNotNull>
+    <isNotNull prepend="," property="TopicGroupID">
+    #TopicGroupID#
+    </isNotNull>
+  </dynamic>
+  )
+  </insert>
+  <update id="Update" parameterClass="User_TopicGroupUpdateForm">
+  UPDATE [User_TopicGroup]
+    <dynamic prepend="SET">
+        <isNotNull prepend="," property="Entity.UserID">
+        [UserID]=#Entity.UserID#
+        </isNotNull>
+        <isNotNull prepend="," property="Entity.TopicGroupID">
+        [TopicGroupID]=#Entity.TopicGroupID#
+        </isNotNull>
+    </dynamic>
+    <dynamic prepend="WHERE">
+    <isNotEmpty prepend="AND" property="QueryForm.ID">
+        [ID]=#QueryForm.ID#
+    </isNotEmpty>
+    
+        <isNotEmpty prepend="AND"  property="QueryForm.IDs">
+        <iterate property="QueryForm.IDs" open="(" close=")" conjunction="OR">
+         [ID]=#QueryForm.IDs[]#
+        </iterate>
+    </isNotEmpty>
+    <isNotEmpty prepend="AND" property="QueryForm.UserID">
+        [UserID]=#QueryForm.UserID#
+    </isNotEmpty>
+    
+        <isNotEmpty prepend="AND"  property="QueryForm.UserIDs">
+        <iterate property="QueryForm.UserIDs" open="(" close=")" conjunction="OR">
+         [UserID]=#QueryForm.UserIDs[]#
+        </iterate>
+    </isNotEmpty>
+    <isNotEmpty prepend="AND" property="QueryForm.TopicGroupID">
+        [TopicGroupID]=#QueryForm.TopicGroupID#
+    </isNotEmpty>
+    
+        <isNotEmpty prepend="AND"  property="QueryForm.TopicGroupIDs">
+        <iterate property="QueryForm.TopicGroupIDs" open="(" close=")" conjunction="OR">
+         [TopicGroupID]=#QueryForm.TopicGroupIDs[]#
+        </iterate>
+    </isNotEmpty>
+    </dynamic>
+  </update>
+  
+  <delete id="Delete" parameterClass="User_TopicGroupQueryForm">
+    DELETE FROM [User_TopicGroup] WHERE 1=1
+    <isNotEmpty prepend="AND" property="ID">
+        [ID]=#ID#
+    </isNotEmpty>
+    
+        <isNotEmpty prepend="AND"  property="IDs">
+        <iterate property="IDs" open="(" close=")" conjunction="OR">
+         [ID]=#IDs[]#
+        </iterate>
+        </isNotEmpty>
+    <isNotEmpty prepend="AND" property="UserID">
+        [UserID]=#UserID#
+    </isNotEmpty>
+    
+        <isNotEmpty prepend="AND"  property="UserIDs">
+        <iterate property="UserIDs" open="(" close=")" conjunction="OR">
+         [UserID]=#UserIDs[]#
+        </iterate>
+        </isNotEmpty>
+    <isNotEmpty prepend="AND" property="TopicGroupID">
+        [TopicGroupID]=#TopicGroupID#
+    </isNotEmpty>
+    
+        <isNotEmpty prepend="AND"  property="TopicGroupIDs">
+        <iterate property="TopicGroupIDs" open="(" close=")" conjunction="OR">
+         [TopicGroupID]=#TopicGroupIDs[]#
+        </iterate>
+        </isNotEmpty>
+  </delete>
+  </statements>
+</sqlMap>

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="Topic" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+  <alias>
+    <typeAlias alias="FullTopicInfo" type="XinLuClub.Forum.DLL.Entity.FullTopicInfo" />
+    <typeAlias alias="SearchMyTopicForm" type="XinLuClub.Forum.DLL.Entity.SearchMyTopicForm" />
+  </alias>
+  <statements>
+  <select id="QueryFullTopicInfo" resultClass="FullTopicInfo" parameterClass="TopicQueryForm">
+    SELECT t.*, ISNULL(c.RealName,c.Name) AS CreatorName,ISNULL(l.RealName,l.Name) AS LastUpdatorName FROM [Topic] t
+    LEFT JOIN [User] c ON t.OwnerID=c.ID
+    LEFT JOIN [User] l ON t.LastReplierID=l.ID
+    <dynamic prepend="WHERE">
+    <isNotNull prepend="AND" property="ID">
+        t.[ID]=#ID#
+    </isNotNull>
+    
+        <isNotNull prepend="AND"  property="IDs">
+        <iterate property="IDs" open="(" close=")" conjunction="OR">
+          t.[ID]=#IDs[]#
+        </iterate>
+    </isNotNull>
+    <isNotNull prepend="AND" property="Name">
+      t.[Name]=#Name#
+    </isNotNull>
+    
+    <isNotNull prepend="AND" property="Content">
+      t.[Content]=#Content#
+    </isNotNull>
+    
+    <isNotNull prepend="AND" property="CreateTime_Start">
+      t.[CreateTime]&gt;=#CreateTime_Start#
+    </isNotNull>
+    <isNotNull prepend="AND" property="CreateTime_End">
+      t.[CreateTime]&lt;=#CreateTime_End#
+    </isNotNull>
+    
+    <isNotNull prepend="AND" property="CreateTime">
+      t.[CreateTime]=#CreateTime#
+    </isNotNull>
+    
+    <isNotNull prepend="AND" property="LastUpdateTime_Start">
+      t.[LastUpdateTime]&gt;=#LastUpdateTime_Start#
+    </isNotNull>
+    <isNotNull prepend="AND" property="LastUpdateTime_End">
+      t.[LastUpdateTime]&lt;=#LastUpdateTime_End#
+    </isNotNull>
+    
+    <isNotNull prepend="AND" property="LastUpdateTime">
+      t.[LastUpdateTime]=#LastUpdateTime#
+    </isNotNull>
+    
+    <isNotNull prepend="AND" property="OwnerID">
+      t.[OwnerID]=#OwnerID#
+    </isNotNull>
+    
+        <isNotNull prepend="AND"  property="OwnerIDs">
+        <iterate property="OwnerIDs" open="(" close=")" conjunction="OR">
+          t.[OwnerID]=#OwnerIDs[]#
+        </iterate>
+    </isNotNull>
+    <isNotNull prepend="AND" property="LastReplierID">
+      t.[LastReplierID]=#LastReplierID#
+    </isNotNull>
+    
+        <isNotNull prepend="AND"  property="LastReplierIDs">
+        <iterate property="LastReplierIDs" open="(" close=")" conjunction="OR">
+          t.[LastReplierID]=#LastReplierIDs[]#
+        </iterate>
+    </isNotNull>
+    <isNotNull prepend="AND" property="ReplyCount_Start">
+      t.[ReplyCount]&gt;=#ReplyCount_Start#
+    </isNotNull>
+    <isNotNull prepend="AND" property="ReplyCount_End">
+      t.[ReplyCount]&lt;=#ReplyCount_End#
+    </isNotNull>
+    
+    <isNotNull prepend="AND" property="ReplyCount">
+      t.[ReplyCount]=#ReplyCount#
+    </isNotNull>
+    
+    <isNotNull prepend="AND" property="TopicGroupID">
+      t.[TopicGroupID]=#TopicGroupID#
+    </isNotNull>
+    
+        <isNotNull prepend="AND"  property="TopicGroupIDs">
+        <iterate property="TopicGroupIDs" open="(" close=")" conjunction="OR">
+          t.[TopicGroupID]=#TopicGroupIDs[]#
+        </iterate>
+    </isNotNull>
+    <isNotNull prepend="AND" property="BoardGroupID">
+      t.[BoardGroupID]=#BoardGroupID#
+    </isNotNull>
+    
+        <isNotNull prepend="AND"  property="BoardGroupIDs">
+        <iterate property="BoardGroupIDs" open="(" close=")" conjunction="OR">
+          t.[BoardGroupID]=#BoardGroupIDs[]#
+        </iterate>
+    </isNotNull>
+    <isNotNull prepend="AND" property="Enabled">
+      t.[Enabled]=#Enabled#
+    </isNotNull>
+    
+    </dynamic>
+  </select>
+
+    <update id="UpdateReplyCount" parameterClass="TopicQueryForm">
+      UPDATE [Topic] SET ReplyCount=ReplyCount+1,[LastReplierID]=#LastReplierID#,[LastUpdateTime]=GETDATE()
+
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="ID">
+          [ID]=#ID#
+        </isNotNull>
+
+        <isNotNull prepend="AND"  property="IDs">
+          <iterate property="IDs" open="(" close=")" conjunction="OR">
+            [ID]=#IDs[]#
+          </iterate>
+        </isNotNull>
+
+      </dynamic>
+    </update>
+    
+  <select id="SearchMyTopic" resultClass="FullTopicInfo" parameterClass="SearchMyTopicForm">
+      SELECT t.*, ISNULL(c.RealName,c.Name) AS CreatorName,ISNULL(l.RealName,l.Name) AS LastUpdatorName FROM [Topic] t
+      LEFT JOIN [User] c ON t.OwnerID=c.ID
+      LEFT JOIN [User] l ON t.LastReplierID=l.ID
+      WHERE t.ID IN (SELECT t.ID from [Reply] r
+      INNER JOIN [Topic] t ON r.TopicID=t.ID
+      INNER JOIN [User_BoardGroup] ub ON ub.ID=t.BoardGroupID
+      INNER JOIN [User] u ON ub.UserID=u.ID
+      WHERE (r.Content LIKE r.[Content] LIKE '%$Content$%' OR t.[Content] LIKE  '%$Content$%) AND u.ID=#UserID# AND t.Enabled=1)
+      
+    </select>
+  </statements>
+</sqlMap>

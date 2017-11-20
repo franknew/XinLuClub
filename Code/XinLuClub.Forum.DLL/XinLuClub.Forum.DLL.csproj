@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{83096C92-95EF-4D80-B0FE-6002C71AAD31}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>XinLuClub.Forum.DLL</RootNamespace>
+    <AssemblyName>XinLuClub.Forum.DLL</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="IBatisNet.Common">
+      <HintPath>..\commondll\IBatisNet.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="IBatisNet.DataMapper">
+      <HintPath>..\commondll\IBatisNet.DataMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="SOAFramework.Library.DAL">
+      <HintPath>..\commondll\SOAFramework.Library.DAL.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CustomDao\ReplyDao.cs" />
+    <Compile Include="CustomDao\TopicDao.cs" />
+    <Compile Include="Dao\BoardGroupDao.cs" />
+    <Compile Include="Dao\NotifyDao.cs" />
+    <Compile Include="Dao\ReplyDao.cs" />
+    <Compile Include="Dao\TokenDao.cs" />
+    <Compile Include="Dao\TopicDao.cs" />
+    <Compile Include="Dao\TopicGroupDao.cs" />
+    <Compile Include="Dao\UserDao.cs" />
+    <Compile Include="Dao\UserPasswordDao.cs" />
+    <Compile Include="Dao\User_BoardGroupDao.cs" />
+    <Compile Include="Dao\User_TopicGroupDao.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\XinLuClub.Forum.Entity\XinLuClub.Forum.Entity.csproj">
+      <Project>{8c264244-d172-4ceb-adab-35a63b013b6e}</Project>
+      <Name>XinLuClub.Forum.Entity</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

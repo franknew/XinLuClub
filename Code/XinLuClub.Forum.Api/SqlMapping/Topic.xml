@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="Topic" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+  <alias>
+    <typeAlias alias="Topic" type="XinLuClub.Forum.DLL.Entity.Topic" />
+    <typeAlias alias="TopicQueryForm" type="XinLuClub.Forum.DLL.Form.TopicQueryForm" />
+    <typeAlias alias="TopicUpdateForm" type="XinLuClub.Forum.DLL.Form.TopicUpdateForm" />
+  </alias>
+  <statements>
+  <select id="Query" resultClass="Topic" parameterClass="TopicQueryForm">
+    SELECT * FROM [Topic]
+    <dynamic prepend="WHERE">
+    <isNotEmpty prepend="AND" property="ID">
+        [ID]=#ID#
+    </isNotEmpty>
+    
+        <isNotEmpty prepend="AND"  property="IDs">
+        <iterate property="IDs" open="(" close=")" conjunction="OR">
+         [ID]=#IDs[]#
+        </iterate>
+    </isNotEmpty>
+    <isNotEmpty prepend="AND" property="Name">
+        [Name] LIKE '%$Name$%'
+    </isNotEmpty>
+    
+    <isNotEmpty prepend="AND" property="Content">
+        [Content] LIKE '%$Content$%'
+    </isNotEmpty>
+    
+    <isNotEmpty prepend="AND" property="CreateTime_Start">
+        [CreateTime]&gt;=#CreateTime_Start#
+    </isNotEmpty>
+    <isNotEmpty prepend="AND" property="CreateTime_End">
+        [CreateTime]&lt;=#CreateTime_End#
+    </isNotEmpty>
+    
+    <isNotEmpty prepend="AND" property="CreateTime">
+        [CreateTime]=#CreateTime#
+    </isNotEmpty>
+    
+    <isNotEmpty prepend="AND" property="LastUpdateTime_Start">
+        [LastUpdateTime]&gt;=#LastUpdateTime_Start#
+    </isNotEmpty>
+    <isNotEmpty prepend="AND" property="LastUpdateTime_End">
+        [LastUpdateTime]&lt;=#LastUpdateTime_End#
+    </isNotEmpty>
+    
+    <isNotEmpty prepend="AND" property="LastUpdateTime">
+        [LastUpdateTime]=#LastUpdateTime#
+    </isNotEmpty>
+    
+    <isNotEmpty prepend="AND" property="OwnerID">
+        [OwnerID]=#OwnerID#
+    </isNotEmpty>
+    
+        <isNotEmpty prepend="AND"  property="OwnerIDs">
+        <iterate property="OwnerIDs" open="(" close=")" conjunction="OR">
+         [OwnerID]=#OwnerIDs[]#
+        </iterate>
+    </isNotEmpty>
+    <isNotEmpty prepend="AND" property="LastReplierID">
+        [LastReplierID]=#LastReplierID#
+    </isNotEmpty>
+    
+        <isNotEmpty prepend="AND"  property="LastReplierIDs">
+        <iterate property="LastReplierIDs" open="(" close=")" conjunction="OR">
+         [LastReplierID]=#LastReplierIDs[]#
+        </iterate>
+    </isNotEmpty>
+    <isNotEmpty prepend="AND" property="ReplyCount_Start">
+        [ReplyCount]&gt;=#ReplyCount_Start#
+    </isNotEmpty>
+    <isNotEmpty prepend="AND" property="ReplyCount_End">
+        [ReplyCount]&lt;=#ReplyCount_End#
+    </isNotEmpty>
+    
+    <isNotEmpty prepend="AND" property="ReplyCount">
+        [ReplyCount]=#ReplyCount#
+    </isNotEmpty>
+    
+    <isNotEmpty prepend="AND" property="TopicGroupID">
+        [TopicGroupID]=#TopicGroupID#
+    </isNotEmpty>
+    
+        <isNotEmpty prepend="AND"  property="TopicGroupIDs">
+        <iterate property="TopicGroupIDs" open="(" close=")" conjunction="OR">
+         [TopicGroupID]=#TopicGroupIDs[]#
+        </iterate>
+    </isNotEmpty>
+    <isNotEmpty prepend="AND" property="BoardGroupID">
+        [BoardGroupID]=#BoardGroupID#
+    </isNotEmpty>
+    
+        <isNotEmpty prepend="AND"  property="BoardGroupIDs">
+        <iterate property="BoardGroupIDs" open="(" close=")" conjunction="OR">
+         [BoardGroupID]=#BoardGroupIDs[]#
+        </iterate>
+    </isNotEmpty>
+    <isNotEmpty prepend="AND" property="Enabled">
+        [Enabled]=#Enabled#
+    </isNotEmpty>
+    
+    </dynamic>
+        ORDER BY LastUpdateTime DESC
+  </select>
+  <insert id="Add" parameterClass="Topic">
+  INSERT INTO [Topic]
+  (
+  <dynamic prepend=" ">
+    <isNotNull prepend="," property="ID">
+    [ID]
+    </isNotNull>
+    <isNotNull prepend="," property="Name">
+    [Name]
+    </isNotNull>
+    <isNotNull prepend="," property="Content">
+    [Content]
+    </isNotNull>
+    <isNotNull prepend="," property="CreateTime">
+    [CreateTime]
+    </isNotNull>
+    <isNotNull prepend="," property="LastUpdateTime">
+    [LastUpdateTime]
+    </isNotNull>
+    <isNotNull prepend="," property="OwnerID">
+    [OwnerID]
+    </isNotNull>
+    <isNotNull prepend="," property="LastReplierID">
+    [LastReplierID]
+    </isNotNull>
+    <isNotNull prepend="," property="ReplyCount">
+    [ReplyCount]
+    </isNotNull>
+    <isNotNull prepend="," property="TopicGroupID">
+    [TopicGroupID]
+    </isNotNull>
+    <isNotNull prepend="," property="BoardGroupID">
+    [BoardGroupID]
+    </isNotNull>
+    <isNotNull prepend="," property="Enabled">
+    [Enabled]
+    </isNotNull>
+  </dynamic>
+  )
+  VALUES
+  (
+  <dynamic prepend=" ">
+    <isNotNull prepend="," property="ID">
+    #ID#
+    </isNotNull>
+    <isNotNull prepend="," property="Name">
+    #Name#
+    </isNotNull>
+    <isNotNull prepend="," property="Content">
+    #Content#
+    </isNotNull>
+    <isNotNull prepend="," property="CreateTime">
+    #CreateTime#
+    </isNotNull>
+    <isNotNull prepend="," property="LastUpdateTime">
+    #LastUpdateTime#
+    </isNotNull>
+    <isNotNull prepend="," property="OwnerID">
+    #OwnerID#
+    </isNotNull>
+    <isNotNull prepend="," property="LastReplierID">
+    #LastReplierID#
+    </isNotNull>
+    <isNotNull prepend="," property="ReplyCount">
+    #ReplyCount#
+    </isNotNull>
+    <isNotNull prepend="," property="TopicGroupID">
+    #TopicGroupID#
+    </isNotNull>
+    <isNotNull prepend="," property="BoardGroupID">
+    #BoardGroupID#
+    </isNotNull>
+    <isNotNull prepend="," property="Enabled">
+    #Enabled#
+    </isNotNull>
+  </dynamic>
+  )
+  </insert>
+  <update id="Update" parameterClass="TopicUpdateForm">
+  UPDATE [Topic]
+    <dynamic prepend="SET">
+        <isNotNull prepend="," property="Entity.Name">
+        [Name]=#Entity.Name#
+        </isNotNull>
+        <isNotNull prepend="," property="Entity.Content">
+        [Content]=#Entity.Content#
+        </isNotNull>
+        <isNotNull prepend="," property="Entity.CreateTime">
+        [CreateTime]=#Entity.CreateTime#
+        </isNotNull>
+        <isNotNull prepend="," property="Entity.LastUpdateTime">
+        [LastUpdateTime]=#Entity.LastUpdateTime#
+        </isNotNull>
+        <isNotNull prepend="," property="Entity.OwnerID">
+        [OwnerID]=#Entity.OwnerID#
+        </isNotNull>
+        <isNotNull prepend="," property="Entity.LastReplierID">
+        [LastReplierID]=#Entity.LastReplierID#
+        </isNotNull>
+        <isNotNull prepend="," property="Entity.ReplyCount">
+        [ReplyCount]=#Entity.ReplyCount#
+        </isNotNull>
+        <isNotNull prepend="," property="Entity.TopicGroupID">
+        [TopicGroupID]=#Entity.TopicGroupID#
+        </isNotNull>
+        <isNotNull prepend="," property="Entity.BoardGroupID">
+        [BoardGroupID]=#Entity.BoardGroupID#
+        </isNotNull>
+        <isNotNull prepend="," property="Entity.Enabled">
+        [Enabled]=#Entity.Enabled#
+        </isNotNull>
+    </dynamic>
+    <dynamic prepend="WHERE">
+    <isNotEmpty prepend="AND" property="QueryForm.ID">
+        [ID]=#QueryForm.ID#
+    </isNotEmpty>
+    
+        <isNotEmpty prepend="AND"  property="QueryForm.IDs">
+        <iterate property="QueryForm.IDs" open="(" close=")" conjunction="OR">
+         [ID]=#QueryForm.IDs[]#
+        </iterate>
+    </isNotEmpty>
+    <isNotEmpty prepend="AND" property="QueryForm.Name">
+        [Name] LIKE '%$QueryForm.Name$%'
+    </isNotEmpty>
+    
+    <isNotEmpty prepend="AND" property="QueryForm.Content">
+        [Content] LIKE '%$QueryForm.Content$%'
+    </isNotEmpty>
+    
+    <isNotEmpty prepend="AND" property="QueryForm.CreateTime_Start">
+        [CreateTime]&gt;=#QueryForm.CreateTime_Start#
+    </isNotEmpty>
+    <isNotEmpty prepend="AND" property="QueryForm.CreateTime_End">
+        [CreateTime]&lt;=#QueryForm.CreateTime_End#
+    </isNotEmpty>
+    
+    <isNotEmpty prepend="AND" property="QueryForm.LastUpdateTime_Start">
+        [LastUpdateTime]&gt;=#QueryForm.LastUpdateTime_Start#
+    </isNotEmpty>
+    <isNotEmpty prepend="AND" property="QueryForm.LastUpdateTime_End">
+        [LastUpdateTime]&lt;=#QueryForm.LastUpdateTime_End#
+    </isNotEmpty>
+    
+    <isNotEmpty prepend="AND" property="QueryForm.OwnerID">
+        [OwnerID]=#QueryForm.OwnerID#
+    </isNotEmpty>
+    
+        <isNotEmpty prepend="AND"  property="QueryForm.OwnerIDs">
+        <iterate property="QueryForm.OwnerIDs" open="(" close=")" conjunction="OR">
+         [OwnerID]=#QueryForm.OwnerIDs[]#
+        </iterate>
+    </isNotEmpty>
+    <isNotEmpty prepend="AND" property="QueryForm.LastReplierID">
+        [LastReplierID]=#QueryForm.LastReplierID#
+    </isNotEmpty>
+    
+        <isNotEmpty prepend="AND"  property="QueryForm.LastReplierIDs">
+        <iterate property="QueryForm.LastReplierIDs" open="(" close=")" conjunction="OR">
+         [LastReplierID]=#QueryForm.LastReplierIDs[]#
+        </iterate>
+    </isNotEmpty>
+    <isNotEmpty prepend="AND" property="QueryForm.ReplyCount_Start">
+        [ReplyCount]&gt;=#QueryForm.ReplyCount_Start#
+    </isNotEmpty>
+    <isNotEmpty prepend="AND" property="QueryForm.ReplyCount_End">
+        [ReplyCount]&lt;=#QueryForm.ReplyCount_End#
+    </isNotEmpty>
+    
+    <isNotEmpty prepend="AND" property="QueryForm.TopicGroupID">
+        [TopicGroupID]=#QueryForm.TopicGroupID#
+    </isNotEmpty>
+    
+        <isNotEmpty prepend="AND"  property="QueryForm.TopicGroupIDs">
+        <iterate property="QueryForm.TopicGroupIDs" open="(" close=")" conjunction="OR">
+         [TopicGroupID]=#QueryForm.TopicGroupIDs[]#
+        </iterate>
+    </isNotEmpty>
+    <isNotEmpty prepend="AND" property="QueryForm.BoardGroupID">
+        [BoardGroupID]=#QueryForm.BoardGroupID#
+    </isNotEmpty>
+    
+        <isNotEmpty prepend="AND"  property="QueryForm.BoardGroupIDs">
+        <iterate property="QueryForm.BoardGroupIDs" open="(" close=")" conjunction="OR">
+         [BoardGroupID]=#QueryForm.BoardGroupIDs[]#
+        </iterate>
+    </isNotEmpty>
+    <isNotEmpty prepend="AND" property="QueryForm.Enabled">
+        [Enabled]=#QueryForm.Enabled#
+    </isNotEmpty>
+    
+    </dynamic>
+  </update>
+  
+  <delete id="Delete" parameterClass="TopicQueryForm">
+    DELETE FROM [Topic] WHERE 1=1
+    <isNotEmpty prepend="AND" property="ID">
+        [ID]=#ID#
+    </isNotEmpty>
+    
+        <isNotEmpty prepend="AND"  property="IDs">
+        <iterate property="IDs" open="(" close=")" conjunction="OR">
+         [ID]=#IDs[]#
+        </iterate>
+        </isNotEmpty>
+    <isNotEmpty prepend="AND" property="Name">
+        [Name] LIKE '%$Name$%'
+    </isNotEmpty>
+    
+    <isNotEmpty prepend="AND" property="Content">
+        [Content] LIKE '%$Content$%'
+    </isNotEmpty>
+    
+    <isNotEmpty prepend="AND" property="CreateTime_Start">
+        [CreateTime]&gt;=#CreateTime_Start#
+    </isNotEmpty>
+    <isNotEmpty prepend="AND" property="CreateTime_End">
+        [CreateTime]&lt;=#CreateTime_End#
+    </isNotEmpty>
+    
+    <isNotEmpty prepend="AND" property="LastUpdateTime_Start">
+        [LastUpdateTime]&gt;=#LastUpdateTime_Start#
+    </isNotEmpty>
+    <isNotEmpty prepend="AND" property="LastUpdateTime_End">
+        [LastUpdateTime]&lt;=#LastUpdateTime_End#
+    </isNotEmpty>
+    
+    <isNotEmpty prepend="AND" property="OwnerID">
+        [OwnerID]=#OwnerID#
+    </isNotEmpty>
+    
+        <isNotEmpty prepend="AND"  property="OwnerIDs">
+        <iterate property="OwnerIDs" open="(" close=")" conjunction="OR">
+         [OwnerID]=#OwnerIDs[]#
+        </iterate>
+        </isNotEmpty>
+    <isNotEmpty prepend="AND" property="LastReplierID">
+        [LastReplierID]=#LastReplierID#
+    </isNotEmpty>
+    
+        <isNotEmpty prepend="AND"  property="LastReplierIDs">
+        <iterate property="LastReplierIDs" open="(" close=")" conjunction="OR">
+         [LastReplierID]=#LastReplierIDs[]#
+        </iterate>
+        </isNotEmpty>
+    <isNotEmpty prepend="AND" property="ReplyCount_Start">
+        [ReplyCount]&gt;=#ReplyCount_Start#
+    </isNotEmpty>
+    <isNotEmpty prepend="AND" property="ReplyCount_End">
+        [ReplyCount]&lt;=#ReplyCount_End#
+    </isNotEmpty>
+    
+    <isNotEmpty prepend="AND" property="TopicGroupID">
+        [TopicGroupID]=#TopicGroupID#
+    </isNotEmpty>
+    
+        <isNotEmpty prepend="AND"  property="TopicGroupIDs">
+        <iterate property="TopicGroupIDs" open="(" close=")" conjunction="OR">
+         [TopicGroupID]=#TopicGroupIDs[]#
+        </iterate>
+        </isNotEmpty>
+    <isNotEmpty prepend="AND" property="BoardGroupID">
+        [BoardGroupID]=#BoardGroupID#
+    </isNotEmpty>
+    
+        <isNotEmpty prepend="AND"  property="BoardGroupIDs">
+        <iterate property="BoardGroupIDs" open="(" close=")" conjunction="OR">
+         [BoardGroupID]=#BoardGroupIDs[]#
+        </iterate>
+        </isNotEmpty>
+    <isNotEmpty prepend="AND" property="Enabled">
+        [Enabled]=#Enabled#
+    </isNotEmpty>
+    
+  </delete>
+   <select id="QueryLastUpdateTime" resultClass="DateTime">
+        SELECT MAX(LastUpdateTime) AS LastUpdateTime FROM [Topic]
+   </select>
+  </statements>
+</sqlMap>

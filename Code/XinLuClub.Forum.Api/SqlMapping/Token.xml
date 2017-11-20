@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="Token" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+  <alias>
+    <typeAlias alias="Token" type="XinLuClub.Forum.DLL.Entity.Token" />
+    <typeAlias alias="TokenQueryForm" type="XinLuClub.Forum.DLL.Form.TokenQueryForm" />
+    <typeAlias alias="TokenUpdateForm" type="XinLuClub.Forum.DLL.Form.TokenUpdateForm" />
+  </alias>
+  <statements>
+  <select id="Query" resultClass="Token" parameterClass="TokenQueryForm">
+    SELECT * FROM [Token]
+    <dynamic prepend="WHERE">
+    <isNotEmpty prepend="AND" property="ID">
+        [ID]=#ID#
+    </isNotEmpty>
+    
+        <isNotEmpty prepend="AND"  property="IDs">
+        <iterate property="IDs" open="(" close=")" conjunction="OR">
+         [ID]=#IDs[]#
+        </iterate>
+    </isNotEmpty>
+    <isNotEmpty prepend="AND" property="AccessToken">
+        [AccessToken]=#AccessToken#
+    </isNotEmpty>
+    
+    <isNotEmpty prepend="AND" property="CreateTime_Start">
+        [CreateTime]&gt;=#CreateTime_Start#
+    </isNotEmpty>
+    <isNotEmpty prepend="AND" property="CreateTime_End">
+        [CreateTime]&lt;=#CreateTime_End#
+    </isNotEmpty>
+    
+    <isNotEmpty prepend="AND" property="CreateTime">
+        [CreateTime]=#CreateTime#
+    </isNotEmpty>
+    
+    <isNotEmpty prepend="AND" property="LastUpdateTime_Start">
+        [LastUpdateTime]&gt;=#LastUpdateTime_Start#
+    </isNotEmpty>
+    <isNotEmpty prepend="AND" property="LastUpdateTime_End">
+        [LastUpdateTime]&lt;=#LastUpdateTime_End#
+    </isNotEmpty>
+    
+    <isNotEmpty prepend="AND" property="LastUpdateTime">
+        [LastUpdateTime]=#LastUpdateTime#
+    </isNotEmpty>
+    
+    <isNotEmpty prepend="AND" property="Enabled">
+        [Enabled]=#Enabled#
+    </isNotEmpty>
+    
+    <isNotEmpty prepend="AND" property="UserID">
+        [UserID]=#UserID#
+    </isNotEmpty>
+    
+        <isNotEmpty prepend="AND"  property="UserIDs">
+        <iterate property="UserIDs" open="(" close=")" conjunction="OR">
+         [UserID]=#UserIDs[]#
+        </iterate>
+    </isNotEmpty>
+    <isNotEmpty prepend="AND" property="ExpiredTime_Start">
+        [ExpiredTime]&gt;=#ExpiredTime_Start#
+    </isNotEmpty>
+    <isNotEmpty prepend="AND" property="ExpiredTime_End">
+        [ExpiredTime]&lt;=#ExpiredTime_End#
+    </isNotEmpty>
+    
+    <isNotEmpty prepend="AND" property="ExpiredTime">
+        [ExpiredTime]=#ExpiredTime#
+    </isNotEmpty>
+    
+    </dynamic>
+        ORDER BY LastUpdateTime DESC
+  </select>
+  <insert id="Add" parameterClass="Token">
+  INSERT INTO [Token]
+  (
+  <dynamic prepend=" ">
+    <isNotNull prepend="," property="ID">
+    [ID]
+    </isNotNull>
+    <isNotNull prepend="," property="AccessToken">
+    [AccessToken]
+    </isNotNull>
+    <isNotNull prepend="," property="CreateTime">
+    [CreateTime]
+    </isNotNull>
+    <isNotNull prepend="," property="LastUpdateTime">
+    [LastUpdateTime]
+    </isNotNull>
+    <isNotNull prepend="," property="Enabled">
+    [Enabled]
+    </isNotNull>
+    <isNotNull prepend="," property="UserID">
+    [UserID]
+    </isNotNull>
+    <isNotNull prepend="," property="ExpiredTime">
+    [ExpiredTime]
+    </isNotNull>
+  </dynamic>
+  )
+  VALUES
+  (
+  <dynamic prepend=" ">
+    <isNotNull prepend="," property="ID">
+    #ID#
+    </isNotNull>
+    <isNotNull prepend="," property="AccessToken">
+    #AccessToken#
+    </isNotNull>
+    <isNotNull prepend="," property="CreateTime">
+    #CreateTime#
+    </isNotNull>
+    <isNotNull prepend="," property="LastUpdateTime">
+    #LastUpdateTime#
+    </isNotNull>
+    <isNotNull prepend="," property="Enabled">
+    #Enabled#
+    </isNotNull>
+    <isNotNull prepend="," property="UserID">
+    #UserID#
+    </isNotNull>
+    <isNotNull prepend="," property="ExpiredTime">
+    #ExpiredTime#
+    </isNotNull>
+  </dynamic>
+  )
+  </insert>
+  <update id="Update" parameterClass="TokenUpdateForm">
+  UPDATE [Token]
+    <dynamic prepend="SET">
+        <isNotNull prepend="," property="Entity.AccessToken">
+        [AccessToken]=#Entity.AccessToken#
+        </isNotNull>
+        <isNotNull prepend="," property="Entity.CreateTime">
+        [CreateTime]=#Entity.CreateTime#
+        </isNotNull>
+        <isNotNull prepend="," property="Entity.LastUpdateTime">
+        [LastUpdateTime]=#Entity.LastUpdateTime#
+        </isNotNull>
+        <isNotNull prepend="," property="Entity.Enabled">
+        [Enabled]=#Entity.Enabled#
+        </isNotNull>
+        <isNotNull prepend="," property="Entity.UserID">
+        [UserID]=#Entity.UserID#
+        </isNotNull>
+        <isNotNull prepend="," property="Entity.ExpiredTime">
+        [ExpiredTime]=#Entity.ExpiredTime#
+        </isNotNull>
+    </dynamic>
+    <dynamic prepend="WHERE">
+    <isNotEmpty prepend="AND" property="QueryForm.ID">
+        [ID]=#QueryForm.ID#
+    </isNotEmpty>
+    
+        <isNotEmpty prepend="AND"  property="QueryForm.IDs">
+        <iterate property="QueryForm.IDs" open="(" close=")" conjunction="OR">
+         [ID]=#QueryForm.IDs[]#
+        </iterate>
+    </isNotEmpty>
+    <isNotEmpty prepend="AND" property="QueryForm.AccessToken">
+        [AccessToken]=#QueryForm.AccessToken#
+    </isNotEmpty>
+    
+    <isNotEmpty prepend="AND" property="QueryForm.CreateTime_Start">
+        [CreateTime]&gt;=#QueryForm.CreateTime_Start#
+    </isNotEmpty>
+    <isNotEmpty prepend="AND" property="QueryForm.CreateTime_End">
+        [CreateTime]&lt;=#QueryForm.CreateTime_End#
+    </isNotEmpty>
+    
+    <isNotEmpty prepend="AND" property="QueryForm.LastUpdateTime_Start">
+        [LastUpdateTime]&gt;=#QueryForm.LastUpdateTime_Start#
+    </isNotEmpty>
+    <isNotEmpty prepend="AND" property="QueryForm.LastUpdateTime_End">
+        [LastUpdateTime]&lt;=#QueryForm.LastUpdateTime_End#
+    </isNotEmpty>
+    
+    <isNotEmpty prepend="AND" property="QueryForm.Enabled">
+        [Enabled]=#QueryForm.Enabled#
+    </isNotEmpty>
+    
+    <isNotEmpty prepend="AND" property="QueryForm.UserID">
+        [UserID]=#QueryForm.UserID#
+    </isNotEmpty>
+    
+        <isNotEmpty prepend="AND"  property="QueryForm.UserIDs">
+        <iterate property="QueryForm.UserIDs" open="(" close=")" conjunction="OR">
+         [UserID]=#QueryForm.UserIDs[]#
+        </iterate>
+    </isNotEmpty>
+    <isNotEmpty prepend="AND" property="QueryForm.ExpiredTime_Start">
+        [ExpiredTime]&gt;=#QueryForm.ExpiredTime_Start#
+    </isNotEmpty>
+    <isNotEmpty prepend="AND" property="QueryForm.ExpiredTime_End">
+        [ExpiredTime]&lt;=#QueryForm.ExpiredTime_End#
+    </isNotEmpty>
+    
+    </dynamic>
+  </update>
+  
+  <delete id="Delete" parameterClass="TokenQueryForm">
+    DELETE FROM [Token] WHERE 1=1
+    <isNotEmpty prepend="AND" property="ID">
+        [ID]=#ID#
+    </isNotEmpty>
+    
+        <isNotEmpty prepend="AND"  property="IDs">
+        <iterate property="IDs" open="(" close=")" conjunction="OR">
+         [ID]=#IDs[]#
+        </iterate>
+        </isNotEmpty>
+    <isNotEmpty prepend="AND" property="AccessToken">
+        [AccessToken]=#AccessToken#
+    </isNotEmpty>
+    
+    <isNotEmpty prepend="AND" property="CreateTime_Start">
+        [CreateTime]&gt;=#CreateTime_Start#
+    </isNotEmpty>
+    <isNotEmpty prepend="AND" property="CreateTime_End">
+        [CreateTime]&lt;=#CreateTime_End#
+    </isNotEmpty>
+    
+    <isNotEmpty prepend="AND" property="LastUpdateTime_Start">
+        [LastUpdateTime]&gt;=#LastUpdateTime_Start#
+    </isNotEmpty>
+    <isNotEmpty prepend="AND" property="LastUpdateTime_End">
+        [LastUpdateTime]&lt;=#LastUpdateTime_End#
+    </isNotEmpty>
+    
+    <isNotEmpty prepend="AND" property="Enabled">
+        [Enabled]=#Enabled#
+    </isNotEmpty>
+    
+    <isNotEmpty prepend="AND" property="UserID">
+        [UserID]=#UserID#
+    </isNotEmpty>
+    
+        <isNotEmpty prepend="AND"  property="UserIDs">
+        <iterate property="UserIDs" open="(" close=")" conjunction="OR">
+         [UserID]=#UserIDs[]#
+        </iterate>
+        </isNotEmpty>
+    <isNotEmpty prepend="AND" property="ExpiredTime_Start">
+        [ExpiredTime]&gt;=#ExpiredTime_Start#
+    </isNotEmpty>
+    <isNotEmpty prepend="AND" property="ExpiredTime_End">
+        [ExpiredTime]&lt;=#ExpiredTime_End#
+    </isNotEmpty>
+    
+  </delete>
+   <select id="QueryLastUpdateTime" resultClass="DateTime">
+        SELECT MAX(LastUpdateTime) AS LastUpdateTime FROM [Token]
+   </select>
+  </statements>
+</sqlMap>
