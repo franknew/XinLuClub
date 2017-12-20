@@ -1,6 +1,8 @@
-import { Component, Input, EventEmitter, Output } from '@angular/core';
+import { Component, Input, EventEmitter, Output, OnInit } from '@angular/core';
 import { Topic } from '../../../entities/topic';
 import { DatePipe } from '@angular/common'
+import { User } from '../../../entities/user';
+import { ClientService } from '../../../services/client.service';
 
 @Component({
     moduleId: "topiclist",
@@ -15,16 +17,20 @@ import { DatePipe } from '@angular/common'
     }
     `],
 })
-export class TopiclistComponent {
+export class TopiclistComponent implements OnInit {
     pageSize = 20;
     recordCount = 0;
     currentPageIndex = 1;
     loading: boolean = false;
     records: Array<any> = [];
     searchContent: string;
+    displayPagination: boolean = true;
+    displayRefresh: boolean = true;
 
-    constructor(private datePipe: DatePipe){
+    constructor(private datePipe: DatePipe, private client: ClientService){
         
+    }
+    ngOnInit(): void {
     }
 
     @Input()
@@ -49,6 +55,14 @@ export class TopiclistComponent {
     @Input()
     set Loading(loading: boolean) {
         this.loading = loading;
+    }
+    @Input()
+    set DisplayPagination(displayPagination: boolean) {
+        this.displayPagination = displayPagination;
+    }
+    @Input()
+    set DisplayRefresh(displayRefresh: boolean) {
+        this.displayRefresh = displayRefresh;
     }
 
     @Output() PageIndexChanged = new EventEmitter<number>();

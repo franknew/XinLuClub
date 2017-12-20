@@ -16,8 +16,8 @@ namespace XinLuClub.Forum.BLL
         const string beginTransKey = "__begintrans";
         public static ISqlMapper GetMapper()
         {
-            if (!Session.Current.ContainsKey(mapperKey)) Session.Current[mapperKey] = null;
-            ISqlMapper mapper = Session.Current[mapperKey] as ISqlMapper;
+            if (!ContextFactory.Current.ContainsKey(mapperKey)) ContextFactory.Current[mapperKey] = null;
+            ISqlMapper mapper = ContextFactory.Current[mapperKey] as ISqlMapper;
             if (mapper == null) mapper = Mapper.Instance();
             return mapper;
         }
@@ -25,7 +25,7 @@ namespace XinLuClub.Forum.BLL
         public static ISqlMapper StoreMapper()
         {
             var mapper = Mapper.Instance();
-            Session.Current[mapperKey] = mapper;
+            ContextFactory.Current[mapperKey] = mapper;
             return mapper;
         }
 
@@ -34,25 +34,25 @@ namespace XinLuClub.Forum.BLL
             //开启事务
             ISqlMapper mapper = GetMapper();
             mapper.BeginTransaction();
-            Session.Current[beginTransKey] = true;
+            ContextFactory.Current[beginTransKey] = true;
         }
 
         public static void CommitTrans()
         {
             ISqlMapper mapper = GetMapper();
             bool beginTrans = false;
-            if (Session.Current.ContainsKey(beginTransKey)) beginTrans = (bool)Session.Current[beginTransKey];
+            if (ContextFactory.Current.ContainsKey(beginTransKey)) beginTrans = (bool)ContextFactory.Current[beginTransKey];
             if (mapper != null && beginTrans) mapper.CommitTransaction();
-            Session.Current[beginTransKey] = false;
+            ContextFactory.Current[beginTransKey] = false;
         }
 
         public static void RollBackTrans()
         {
             ISqlMapper mapper = GetMapper();
             bool beginTrans = false;
-            if (Session.Current.ContainsKey(beginTransKey)) beginTrans = (bool)Session.Current[beginTransKey];
+            if (ContextFactory.Current.ContainsKey(beginTransKey)) beginTrans = (bool)ContextFactory.Current[beginTransKey];
             if (mapper != null && beginTrans) mapper.RollBackTransaction();
-            Session.Current[beginTransKey] = false;
+            ContextFactory.Current[beginTransKey] = false;
         }
 
         public static T CreateDao<T, TEntity, TQueryForm, TUpdateForm>() where T: IDao<TEntity, TQueryForm, TUpdateForm>

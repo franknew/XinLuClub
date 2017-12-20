@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <sqlMap namespace="Reply" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
   <alias>
-    <typeAlias alias="ReplyWithChild" type="XinLuClub.Forum.DLL.Entity.ReplyWithChild" />
+    <typeAlias alias="ReplyWithChild" type="XinLuClub.Forum.DAL.ReplyWithChild" />
+    <typeAlias alias="FullReplyInfo" type="XinLuClub.Forum.DAL.FullReplyInfo" />
+    <typeAlias alias="QueryNotifyReplyForm" type="XinLuClub.Forum.DAL.QueryNotifyReplyForm" />
   </alias>
   <statements>
   <select id="QueryChild" resultClass="Reply" parameterClass="ReplyQueryForm">
@@ -174,6 +176,98 @@
         ORDER BY LastUpdateTime DESC
   </select>
 
-    
+    <select id="QueryNotifyReply" resultClass="FullReplyInfo" parameterClass="QueryNotifyReplyForm">
+      SELECT r.*, ISNULL(c.RealName, c.Name) AS OwnerName, ISNULL(t.RealName, t.Name) AS ReplyToName,ISNULL(n.IsRead, 1) AS IsRead
+      FROM [Reply] r
+      LEFT JOIN [Notify] n ON r.ID=n.ReplyID
+      LEFT JOIN [User] c ON r.OwnerID=c.ID
+      LEFT JOIN [User] t ON r.ReplyToID=t.ID
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="IsRead">
+          n.[IsRead]=#IsRead#
+        </isNotNull>
+
+        <isNotNull prepend="AND" property="ID">
+          r.[ID]=#ID#
+        </isNotNull>
+
+        <isNotNull prepend="AND"  property="IDs">
+          <iterate property="IDs" open="(" close=")" conjunction="OR">
+            r.[ID]=#IDs[]#
+          </iterate>
+        </isNotNull>
+        <isNotNull prepend="AND" property="Content">
+          r.[Content]=#Content#
+        </isNotNull>
+
+        <isNotNull prepend="AND" property="OwnerID">
+          r.[OwnerID]=#OwnerID#
+        </isNotNull>
+
+        <isNotNull prepend="AND"  property="OwnerIDs">
+          <iterate property="OwnerIDs" open="(" close=")" conjunction="OR">
+            r.[OwnerID]=#OwnerIDs[]#
+          </iterate>
+        </isNotNull>
+        <isNotNull prepend="AND" property="CreateTime_Start">
+          r.[CreateTime]&gt;=#CreateTime_Start#
+        </isNotNull>
+        <isNotNull prepend="AND" property="CreateTime_End">
+          r.[CreateTime]&lt;=#CreateTime_End#
+        </isNotNull>
+
+        <isNotNull prepend="AND" property="CreateTime">
+          r.[CreateTime]=#CreateTime#
+        </isNotNull>
+
+        <isNotNull prepend="AND" property="ReplyID">
+          r.[ReplyID]=#ReplyID#
+        </isNotNull>
+
+        <isNotNull prepend="AND"  property="ReplyIDs">
+          <iterate property="ReplyIDs" open="(" close=")" conjunction="OR">
+            r.[ReplyID]=#ReplyIDs[]#
+          </iterate>
+        </isNotNull>
+        <isNotNull prepend="AND" property="TopicID">
+          r.[TopicID]=#TopicID#
+        </isNotNull>
+
+        <isNotNull prepend="AND"  property="TopicIDs">
+          <iterate property="TopicIDs" open="(" close=")" conjunction="OR">
+            r.[TopicID]=#TopicIDs[]#
+          </iterate>
+        </isNotNull>
+        <isNotNull prepend="AND" property="ReplyTo">
+          r.[ReplyTo]=#ReplyTo#
+        </isNotNull>
+
+        <isNotNull prepend="AND" property="Enabled">
+          r.[Enabled]=#Enabled#
+        </isNotNull>
+
+        <isNotNull prepend="AND" property="LastUpdateTime_Start">
+          r.[LastUpdateTime]&gt;=#LastUpdateTime_Start#
+        </isNotNull>
+        <isNotNull prepend="AND" property="LastUpdateTime_End">
+          r.[LastUpdateTime]&lt;=#LastUpdateTime_End#
+        </isNotNull>
+
+        <isNotNull prepend="AND" property="LastUpdateTime">
+          r.[LastUpdateTime]=#LastUpdateTime#
+        </isNotNull>
+
+        <isNotNull prepend="AND" property="ReplyToID">
+          r.[ReplyToID]=#ReplyToID#
+        </isNotNull>
+
+        <isNotNull prepend="AND"  property="ReplyToIDs">
+          <iterate property="ReplyToIDs" open="(" close=")" conjunction="OR">
+            r.[ReplyToID]=#ReplyToIDs[]#
+          </iterate>
+        </isNotNull>
+      </dynamic>
+      ORDER BY r.LastUpdateTime DESC
+    </select>
   </statements>
 </sqlMap>

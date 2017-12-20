@@ -6,6 +6,7 @@ import { ForumService } from '../../../services/forum.service';
 import { BoardGroup } from '../../../entities/boardGroup';
 import { Topic } from '../../../entities/topic';
 import { Timer } from '../../timer/timer.component';
+import { TimerPool } from '../../timer/timerPool.component';
 
 @Component({
     moduleId: "boardtopiclist",
@@ -28,7 +29,7 @@ export class BoardtopiclistComponent implements OnInit, OnChanges,  AfterViewIni
     boardID: string;
     boards: BoardGroup[] = [];
     loading: boolean = false;
-    timer: Timer = new Timer();
+    timer: Timer;
     needLoad: boolean = false;
 
     constructor(private route: ActivatedRoute, private service: ForumService) {
@@ -51,7 +52,9 @@ export class BoardtopiclistComponent implements OnInit, OnChanges,  AfterViewIni
                 }
             });
         };
-        this.timer.Start(notify);
+        this.timer = new Timer("boardtopiclist", notify, 100);
+        TimerPool.register(this.timer);
+        this.timer.Start();
     }
 
     getTopicListByBoard() {

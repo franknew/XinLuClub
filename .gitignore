@@ -3,3 +3,15 @@
 ################################################################################
 
 /Code/pub
+/Code/packages
+/Code/.vs
+/Code/XinLuClub.Forum.Api/bin
+/Code/XinLuClub.Forum.Api/Logs
+/Code/XinLuClub.Forum.Api/obj
+/Code/XinLuClub.Forum.Api/Properties/PublishProfiles
+/Code/XinLuClub.Forum.BLL/bin
+/Code/XinLuClub.Forum.BLL/obj
+/Code/XinLuClub.Forum.DAL/bin
+/Code/XinLuClub.Forum.DAL/obj
+/Code/XinLuClub.Forum.Entity/bin
+/Code/XinLuClub.Forum.Entity/obj

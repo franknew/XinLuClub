@@ -4,17 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SOAFramework.Library.DAL;
-using XinLuClub.Forum.DLL.Entity;
-using XinLuClub.Forum.DLL.Dao;
-using XinLuClub.Forum.DLL.Form;
 using SOAFramework.Library;
 using System.Web;
+using XinLuClub.Forum.DAL;
 
 namespace XinLuClub.Forum.BLL
 {
     public class LoginBLL
     {
         const string meKey = "__me";
+        const int expiredHours = 3;
 
         public LoginResult Login(string userName, string password)
         {
@@ -38,7 +37,7 @@ namespace XinLuClub.Forum.BLL
             {
                 token = new Token
                 {
-                    ExpiredTime = DateTime.Now.AddHours(2),
+                    ExpiredTime = DateTime.Now.AddHours(expiredHours),
                     UserID = userid,
                     AccessToken = tokenstring,
                 };
@@ -47,7 +46,7 @@ namespace XinLuClub.Forum.BLL
             else
             {
                 token = tokens[0];
-                token.ExpiredTime = DateTime.Now.AddHours(1);
+                token.ExpiredTime = DateTime.Now.AddHours(expiredHours);
                 token.AccessToken = tokenstring;
                 tokendao.Update(new TokenUpdateForm
                 {
@@ -77,7 +76,7 @@ namespace XinLuClub.Forum.BLL
             TokenDao tokendao = new TokenDao(mapper);
             tokendao.Update(new TokenUpdateForm
             {
-                Entity = new Token { ExpiredTime = DateTime.Now.AddHours(1) },
+                Entity = new Token { ExpiredTime = DateTime.Now.AddHours(expiredHours) },
                 QueryForm = new TokenQueryForm { AccessToken = token },
             });
         }

@@ -4,13 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace XinLuClub.Forum.DLL.Entity
+namespace XinLuClub.Forum.DAL
 {
-    public class ReplyWithChild: Reply
+    public class ReplyWithChild: FullReplyInfo
     {
-        public List<ReplyWithChild> Children { get; set; }
-
-        public string ReplyToName { get; set; }
-        public string OwnerName { get; set; }
+        private List<ReplyWithChild> children = new List<ReplyWithChild>();
+        public List<ReplyWithChild> Children { get => children; set => children = value; }
     }
 }

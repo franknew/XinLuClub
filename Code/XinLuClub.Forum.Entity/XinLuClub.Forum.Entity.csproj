@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomEntity\FullReplyInfo.cs" />
     <Compile Include="CustomEntity\FullTopicInfo.cs" />
     <Compile Include="CustomEntity\FullUserInfo.cs" />
     <Compile Include="CustomEntity\IndexPage.cs" />
@@ -62,6 +63,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueryForm\BoardGroupQueryForm.cs" />
     <Compile Include="QueryForm\NotifyQueryForm.cs" />
+    <Compile Include="QueryForm\QueryNotifyReplyForm.cs" />
     <Compile Include="QueryForm\ReplyQueryForm.cs" />
     <Compile Include="QueryForm\SearchMyTopicForm.cs" />
     <Compile Include="QueryForm\TokenQueryForm.cs" />

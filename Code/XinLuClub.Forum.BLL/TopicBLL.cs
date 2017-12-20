@@ -4,9 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using XinLuClub.Forum.DLL.Dao;
-using XinLuClub.Forum.DLL.Entity;
-using XinLuClub.Forum.DLL.Form;
+using XinLuClub.Forum.DAL;
 
 namespace XinLuClub.Forum.BLL
 {
@@ -18,7 +16,8 @@ namespace XinLuClub.Forum.BLL
             TopicDao topicdao = new TopicDao(mapper);
             ReplyDao replydao = new ReplyDao(mapper);
             var topic = topicdao.QueryFullTopicInfo(new TopicQueryForm { ID = topicID, Enabled = true }).FirstOrDefault();
-            var replies = GetReplies(new ReplyQueryForm {
+            var replies = GetReplies(new ReplyQueryForm
+            {
                 TopicID = topicID,
                 ReplyID = "0",
                 OrderBy = OrderBy.ASC,
@@ -39,7 +38,7 @@ namespace XinLuClub.Forum.BLL
             var paging = new PaginationEntity<FullTopicInfo>();
             var boards = udgdao.Query(new User_BoardGroupQueryForm { UserID = form.OwnerID, BoardGroupID = form.BoardGroupID });
             if (boards.Count == 0) throw new XinLuClubException(202, "你没有查看该板块的权限，请联系管理员");
-            var topics = topicdao.QueryFullTopicInfo(form);
+            var topics = topicdao.QueryFullTopicInfo(new TopicQueryForm { Enabled = true, BoardGroupID = form.BoardGroupID });
             paging.List = topics;
             paging.RecordCount = form.RecordCount;
             return paging;
@@ -53,33 +52,106 @@ namespace XinLuClub.Forum.BLL
             var paging = new PaginationEntity<FullTopicInfo>();
             var boards = udgdao.Query(new User_BoardGroupQueryForm { UserID = form.OwnerID });
             var boardids = (from b in boards
-                            select b.ID).ToList();
+                            select b.BoardGroupID).ToList();
+            form.OwnerID = null;
+            form.BoardGroupIDs = boardids;
             var topics = topicdao.QueryFullTopicInfo(form);
             paging.List = topics;
             paging.RecordCount = form.RecordCount;
             return paging;
         }
 
+        public PaginationEntity<FullTopicInfo> GetMyFullTopicList(TopicQueryForm form)
+        {
+            var mapper = Common.GetMapper();
+            var paging = new PaginationEntity<FullTopicInfo>();
+            TopicDao topicdao = new TopicDao(mapper);
+            var topics = topicdao.QueryFullTopicInfo(form);
+            paging.List = topics;
+            paging.RecordCount = form.RecordCount;
+            return paging;
+        }
+
+        public int GetReplyCount(QueryNotifyReplyForm form)
+        {
+            var mapper = Common.GetMapper();
+            ReplyDao dao = new ReplyDao(mapper);
+            return dao.QueryNotifyReplyCount(form);
+        }
+
+        public PaginationEntity<FullReplyInfo> GetReplyList(QueryNotifyReplyForm form)
+        {
+            PaginationEntity<FullReplyInfo> result = new PaginationEntity<FullReplyInfo>();
+            var mapper = Common.GetMapper();
+            ReplyDao dao = new ReplyDao(mapper);
+            result.List = dao.QueryNotifyReply(form);
+            result.RecordCount = form.RecordCount;
+            return result;
+        }
+
+        public bool ReadReply(ReplyQueryForm form)
+        {
+            var mapper = Common.GetMapper();
+            ReplyDao replyDao = new ReplyDao(mapper);
+            NotifyDao notifyDao = new NotifyDao(mapper);
+            var replies = replyDao.Query(form);
+            var ids = (from r in replies
+                       select r.ID).ToList();
+            notifyDao.Update(new NotifyUpdateForm
+            {
+                QueryForm = new NotifyQueryForm { ReplyIDs = ids },
+                Entity = new Notify { IsRead = 1 }
+            });
+            return true;
+        }
+
         public string AddTopic(Topic topic)
         {
             var mapper = Common.GetMapper();
             TopicDao dao = new TopicDao(mapper);
-            return dao.Add(topic);
+            return dao.Add(topic).ID;
         }
 
         public string AddReply(Reply reply)
         {
             var mapper = Common.GetMapper();
-            
+
             ReplyDao replydao = new ReplyDao(mapper);
             TopicDao topicdao = new TopicDao(mapper);
+            NotifyDao notifydao = new NotifyDao(mapper);
             topicdao.UpdateReplyCount(new TopicQueryForm
             {
                 ID = reply.TopicID,
-                LastReplierID = reply.Creator,
+                LastReplierID = reply.OwnerID,
+            });
+            topicdao.Update(new TopicUpdateForm
+            {
+                QueryForm = new TopicQueryForm { ID = reply.TopicID },
+                Entity = new Topic { LastReplierID = reply.OwnerID }
+            });
+            replydao.Add(reply);
+            notifydao.Add(new Notify
+            {
+                TopicID = reply.TopicID,
+                UserID = reply.ReplyToID,
+                ReplyID = reply.ID,
             });
 
-            return replydao.Add(reply);
+            return reply.ID;
+        }
+
+        public bool Read(NotifyQueryForm form)
+        {
+            var mapper = Common.GetMapper();
+
+            NotifyDao notifydao = new NotifyDao(mapper);
+            notifydao.Update(new NotifyUpdateForm
+            {
+                QueryForm = form,
+                Entity = new Notify { IsRead = 1 },
+            });
+
+            return true;
         }
 
         public bool DeleteReply(string replyID)
@@ -143,7 +215,7 @@ namespace XinLuClub.Forum.BLL
         {
             var mapper = Common.GetMapper();
             BoardGroupDao dao = new BoardGroupDao(mapper);
-            return dao.Add(board);
+            return dao.Add(board).ID;
         }
 
         public bool UpdateBoard(BoardGroupUpdateForm form)
@@ -192,6 +264,44 @@ namespace XinLuClub.Forum.BLL
             var mappper = Common.GetMapper();
             TopicDao dao = new TopicDao(mappper);
             return dao.SearchMyTopic(new SearchMyTopicForm { SearchCotent = searchContent, UserID = userID });
+        }
+
+        public bool DeleteTopic(TopicQueryForm form)
+        {
+            var mappper = Common.GetMapper();
+            TopicDao dao = new TopicDao(mappper);
+            return dao.Delete(form);
+        }
+
+        public FullReplyInfo GetReplyDetailList(string replyID)
+        {
+            var mappper = Common.GetMapper();
+            ReplyDao dao = new ReplyDao(mappper);
+            NotifyDao notifyDao = new NotifyDao(mappper);
+            var current = dao.QueryFullReplyInfo(new ReplyQueryForm { ID = replyID }).FirstOrDefault();
+            var replies = new List<ReplyWithChild>();
+            if (current.ReplyID == "0")
+            {
+                replies = dao.QueryFullReplyInfo(new ReplyQueryForm { ReplyID = replyID, OrderByColumn = "CreateTime", OrderBy = OrderBy.DESC });
+            }
+            else
+            {
+                current = dao.QueryFullReplyInfo(new ReplyQueryForm { ID = current.ReplyID }).FirstOrDefault();
+                replies = dao.QueryFullReplyInfo(new ReplyQueryForm { ReplyID = current.ID, OrderByColumn = "CreateTime", OrderBy = OrderBy.DESC });
+            }
+            var replyids = (from r in replies
+                            select r.ID).Distinct().ToList();
+            notifyDao.Update(new NotifyUpdateForm
+            {
+                Entity = new Notify { IsRead = 1 },
+                QueryForm = new NotifyQueryForm { ReplyIDs = replyids },
+            });
+            if (current != null)
+            {
+                current.Children = new List<ReplyWithChild>();
+                current.Children.AddRange(replies);
+            }
+            return current;
         }
 
     }

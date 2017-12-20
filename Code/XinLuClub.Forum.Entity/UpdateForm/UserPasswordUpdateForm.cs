@@ -1,11 +1,11 @@
-using XinLuClub.Forum.DLL.Entity;
+using XinLuClub.Forum.DAL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using SOAFramework.Library.DAL;
 
-namespace XinLuClub.Forum.DLL.Form
+namespace XinLuClub.Forum.DAL
 {
     public partial class UserPasswordUpdateForm : BaseUpdateForm<UserPassword, UserPasswordQueryForm>
     {

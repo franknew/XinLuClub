@@ -1,6 +1,13 @@
 <div nz-row class="panel-body">
-    <div>
-        <h2 *ngIf="topic">{{topic.Name}}</h2>
+    <div nz-row>
+        <div nz-col [nzSpan]="23">
+            <h2 *ngIf="topic">{{topic.Name}}</h2>
+        </div>
+        <div nz-col [nzSpan]="1">
+            <button *ngIf="me.IsAdmin || topic.OwnerID==me.ID" nz-button (click)="toggleDelete(true)">
+            <span>删除</span>
+        </button>
+        </div>
     </div>
 </div>
 <br>
@@ -28,23 +35,23 @@
                 <h4>{{item.OwnerName}}</h4>
             </td>
             <td>
-                <div nz-row>
+                <div nz-row class="panel-body">
                     <span [innerHtml]="item.Content"></span>
                 </div>
                 <br>
-                <div nz-row>
+                <div nz-row class="panel-body">
                     <div nz-col [nzSpan]="20"></div>
                     <div nz-col [nzSpan]="2" class="panel-body text-right">
                         {{item.CreateTime | date: 'yyyy-MM-dd mm:ss'}}
                     </div>
                     <div nz-col [nzSpan]="2" class="panel-body text-right">
-                        <a *ngIf="item.Children.length==0" (click)="showReplyPanel(item.ID,null,null)">回复</a>
-                        <a *ngIf="item.Children.length>0 && containsToggle(item.ID)" (click)="togleHide(false, item.ID)">收起回复({{item.Children.length}})</a>
-                        <a *ngIf="item.Children.length>0 && !containsToggle(item.ID)" (click)="togleHide(true, item.ID)">展开回复({{item.Children.length}})</a>
+                        <a *ngIf="item.Children.length==0" (click)="showReplyPanel(item.ID,item.OwnerID,reply.OwnerID, reply.OwnerName)">回复</a>
+                        <a *ngIf="item.Children.length>0 && !containsToggle(item.ID)" (click)="togleHide(false, item.ID)">收起回复({{item.Children.length}})</a>
+                        <a *ngIf="item.Children.length>0 && containsToggle(item.ID)" (click)="togleHide(true, item.ID)">展开回复({{item.Children.length}})</a>
                     </div>
                 </div>
                 <!--回复-->
-                <div nz-row *ngIf="containsToggle(item.ID)">
+                <div nz-row *ngIf="!containsToggle(item.ID)">
                     <div nz-col [nzSpan]="6"></div>
                     <div nz-col [nzSpan]="18" style="background:rgb(247, 248, 250);">
                         <div *ngFor="let reply of item.Children" nz-row class="panel-body">
@@ -56,11 +63,11 @@
                                 <div nz-col [nzSpan]="4" class="text-right">
                                     {{reply.CreateTime | date: 'yyyy-MM-dd mm:ss'}}
                                 </div>
-                                <div class="text-right" nz-col [nzSpan]="1"><a (click)="showReplyPanel(item.ID, reply.OwnerID, reply.OwnerName)">回复</a></div>
+                                <div class="text-right" nz-col [nzSpan]="1"><a (click)="showReplyPanel(item.ID, reply.OwnerID,reply.OwnerID, reply.OwnerName)">回复</a></div>
                             </div>
                         </div>
                         <div *ngIf="item.Children.length > 0" nz-row class="text-right">
-                            <button nz-button (click)="showReplyPanel(item.ID,null,null)">
+                            <button nz-button (click)="showReplyPanel(item.ID,reply.OwnerID,null,null)">
                                         <span>我也说一句</span>
                                     </button>
                         </div>
@@ -69,7 +76,7 @@
                 <div nz-row style="background:rgb(247, 248, 250);">
                 </div>
                 <!--回复面板-->
-                <div *ngIf="showReplyPanelID === item.ID && (containsToggle(item.ID) || item.Children.length==0)" nz-row>
+                <div *ngIf="showReplyPanelID == item.ID && (!containsToggle(item.ID) || item.Children.length==0)" nz-row>
                     <div nz-col [nzSpan]="6"></div>
                     <div nz-col [nzSpan]="18" style="background:rgb(247, 248, 250);">
                         <br>
@@ -101,3 +108,9 @@
 </div>
 <br>
 <br>
+
+<nz-modal [nzVisible]="displayDelete" [nzTitle]="'删除该帖'" [nzContent]="tpldelete" (nzOnOk)="delete()" (nzOnCancel)="toggleDelete(false)" [nzConfirmLoading]="deleteLoading">
+</nz-modal>
+<ng-template #tpldelete>
+    <span>是否删除该帖?</span>
+</ng-template>

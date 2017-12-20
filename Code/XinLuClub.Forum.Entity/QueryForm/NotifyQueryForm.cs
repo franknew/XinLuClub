@@ -4,10 +4,12 @@ using System.Linq;
 using System.Text;
 using SOAFramework.Library.DAL;
 
-namespace XinLuClub.Forum.DLL.Form
+namespace XinLuClub.Forum.DAL
 {
-    public partial class NotifyQueryForm : SimpleQueryForm
+    public partial class NotifyQueryForm : BaseQueryForm
     {
+        public string ID { get; set; }
+        
         public List<string> IDs { get; set;}
         public string TopicID { get; set; }
         
@@ -20,5 +22,17 @@ namespace XinLuClub.Forum.DLL.Form
         public string UserID { get; set; }
         
         public List<string> UserIDs { get; set;}
+        public DateTime? CreateTime { get; set; }
+        
+        public DateTime? CreateTime_Start { get; set; }
+        
+        public DateTime? CreateTime_End { get; set; }
+        
+        public DateTime? LastUpdateTime { get; set; }
+        
+        public DateTime? LastUpdateTime_Start { get; set; }
+        
+        public DateTime? LastUpdateTime_End { get; set; }
+        
     }
 }

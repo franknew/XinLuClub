@@ -1,0 +1,30 @@
+<div class="panel-body">
+    <button nz-button (click)="refreshData($event)">
+        <span>刷新</span>
+    </button>
+</div>
+<nz-table #nzTable [nzDataSource]="records" [nzBordered]="true" [(nzPageSize)]="pageSize" (nzPageSizeChange)="pageIndexChanged('1')" [nzIsPagination]="true" nzShowSizeChanger [nzShowTitle]="false" [nzLoading]="loading" [(nzPageIndex)]="currentPageIndex">
+    <tbody nz-tbody>
+        <tr nz-tbody-tr *ngFor="let item of records">
+            <td nz-tbody-td class="text-center" style="width:3%;">
+                <span *ngIf="!item.IsRead" style="color:blue;">未读</span>
+                <span *ngIf="item.IsRead">已读</span>
+            </td>
+            <td nz-tbody-td>
+                <div nz-row class="panel-body" [innerHtml]='item.Content'>
+                </div>
+            </td>
+            <td nz-tbody-td style="width:8%;" class="text-right">
+                <div nz-row>
+                    {{item.OwnerName}}
+                </div>
+                <div nz-row>
+                    {{item.CreateTime | date: 'yyyy-MM-dd mm:ss'}}
+                </div>
+                <div nz-row>
+                    <a [routerLink]="['/index',{ outlets: { forum: ['replydetaillist', item.ID] } }]">回复</a>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</nz-table>

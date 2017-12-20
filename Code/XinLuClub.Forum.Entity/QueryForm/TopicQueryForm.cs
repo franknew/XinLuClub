@@ -4,14 +4,28 @@ using System.Linq;
 using System.Text;
 using SOAFramework.Library.DAL;
 
-namespace XinLuClub.Forum.DLL.Form
+namespace XinLuClub.Forum.DAL
 {
-    public partial class TopicQueryForm : SimpleQueryForm
+    public partial class TopicQueryForm : BaseQueryForm
     {
+        public string ID { get; set; }
+        
         public List<string> IDs { get; set;}
         public string Name { get; set; }
         
         public string Content { get; set; }
+        
+        public DateTime? CreateTime { get; set; }
+        
+        public DateTime? CreateTime_Start { get; set; }
+        
+        public DateTime? CreateTime_End { get; set; }
+        
+        public DateTime? LastUpdateTime { get; set; }
+        
+        public DateTime? LastUpdateTime_Start { get; set; }
+        
+        public DateTime? LastUpdateTime_End { get; set; }
         
         public string OwnerID { get; set; }
         

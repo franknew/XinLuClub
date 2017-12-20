@@ -4,18 +4,26 @@ using System.Linq;
 using System.Text;
 using SOAFramework.Library.DAL;
 
-namespace XinLuClub.Forum.DLL.Entity
+namespace XinLuClub.Forum.DAL
 {
     public partial class User_BoardGroup : BaseEntity
     {
         /// <summary>
         /// 
         /// </summary>
+        [PrimaryKey]
+        public string ID { get; set; }
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        
         public string UserID { get; set; }
         
         /// <summary>
         /// 
         /// </summary>
+        
         public string BoardGroupID { get; set; }
         
     }

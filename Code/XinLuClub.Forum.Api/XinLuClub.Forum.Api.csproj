@@ -56,6 +56,10 @@
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="netstandard, Version=2.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" />
+    <Reference Include="SOAFramework.Library.Context, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\commondll\SOAFramework.Library.Context.dll</HintPath>
+    </Reference>
     <Reference Include="SOAFramework.Library.DAL, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\commondll\SOAFramework.Library.DAL.dll</HintPath>
@@ -69,8 +73,9 @@
     <Reference Include="SOAFramework.Library.Reflection">
       <HintPath>..\commondll\SOAFramework.Library.Reflection.dll</HintPath>
     </Reference>
-    <Reference Include="SOAFramework.Library.Session">
-      <HintPath>..\commondll\SOAFramework.Library.Session.dll</HintPath>
+    <Reference Include="SOAFramework.Library.SimpleLogger, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\commondll\SOAFramework.Library.SimpleLogger.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -191,26 +196,44 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="providers.config" />
-    <Content Include="SqlMapping\BoardGroup.xml" />
-    <Content Include="SqlMapping\Notify.xml" />
+    <Content Include="SqlMapping\BoardGroup.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlMapping\Notify.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="SqlMapping\Reply_Ex.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
-    <Content Include="SqlMapping\Reply.xml" />
-    <Content Include="SqlMapping\Token.xml" />
-    <Content Include="SqlMapping\Topic_Ex.xml">
+    <Content Include="SqlMapping\Reply.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="SqlMapping\Topic.xml" />
-    <Content Include="SqlMapping\TopicGroup.xml" />
+    <Content Include="SqlMapping\Token.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlMapping\Topic_Ex.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="SqlMapping\Topic.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlMapping\TopicGroup.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="SqlMapping\User.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="SqlMapping\UserPassword.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="SqlMapping\User_BoardGroup.xml" />
-    <Content Include="SqlMapping\User_TopicGroup.xml" />
+    <Content Include="SqlMapping\User_BoardGroup.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlMapping\User_TopicGroup.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -232,9 +255,9 @@
       <Project>{9555C00F-3C4F-4B60-8CE8-A31CCA1B925D}</Project>
       <Name>XinLuClub.Forum.BLL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\XinLuClub.Forum.DLL\XinLuClub.Forum.DLL.csproj">
+    <ProjectReference Include="..\XinLuClub.Forum.DAL\XinLuClub.Forum.DAL.csproj">
       <Project>{83096C92-95EF-4D80-B0FE-6002C71AAD31}</Project>
-      <Name>XinLuClub.Forum.DLL</Name>
+      <Name>XinLuClub.Forum.DAL</Name>
     </ProjectReference>
     <ProjectReference Include="..\XinLuClub.Forum.Entity\XinLuClub.Forum.Entity.csproj">
       <Project>{8C264244-D172-4CEB-ADAB-35A63B013B6E}</Project>

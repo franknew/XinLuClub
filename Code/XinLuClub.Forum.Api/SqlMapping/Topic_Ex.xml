@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <sqlMap namespace="Topic" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
   <alias>
-    <typeAlias alias="FullTopicInfo" type="XinLuClub.Forum.DLL.Entity.FullTopicInfo" />
-    <typeAlias alias="SearchMyTopicForm" type="XinLuClub.Forum.DLL.Entity.SearchMyTopicForm" />
+    <typeAlias alias="FullTopicInfo" type="XinLuClub.Forum.DAL.FullTopicInfo" />
+    <typeAlias alias="SearchMyTopicForm" type="XinLuClub.Forum.DAL.SearchMyTopicForm" />
   </alias>
   <statements>
   <select id="QueryFullTopicInfo" resultClass="FullTopicInfo" parameterClass="TopicQueryForm">
@@ -121,15 +121,15 @@
     </update>
     
   <select id="SearchMyTopic" resultClass="FullTopicInfo" parameterClass="SearchMyTopicForm">
-      SELECT t.*, ISNULL(c.RealName,c.Name) AS CreatorName,ISNULL(l.RealName,l.Name) AS LastUpdatorName FROM [Topic] t
-      LEFT JOIN [User] c ON t.OwnerID=c.ID
-      LEFT JOIN [User] l ON t.LastReplierID=l.ID
-      WHERE t.ID IN (SELECT t.ID from [Reply] r
-      INNER JOIN [Topic] t ON r.TopicID=t.ID
-      INNER JOIN [User_BoardGroup] ub ON ub.ID=t.BoardGroupID
-      INNER JOIN [User] u ON ub.UserID=u.ID
-      WHERE (r.Content LIKE r.[Content] LIKE '%$Content$%' OR t.[Content] LIKE  '%$Content$%) AND u.ID=#UserID# AND t.Enabled=1)
-      
-    </select>
+    SELECT t.*, ISNULL(c.RealName,c.Name) AS CreatorName,ISNULL(l.RealName,l.Name) AS LastUpdatorName FROM [Topic] t
+    LEFT JOIN [User] c ON t.OwnerID=c.ID
+    LEFT JOIN [User] l ON t.LastReplierID=l.ID
+    WHERE t.ID IN (SELECT t.ID from [Reply] r
+    INNER JOIN [Topic] t ON r.TopicID=t.ID
+    INNER JOIN [User_BoardGroup] ub ON ub.BoardGroupID=t.BoardGroupID
+    INNER JOIN [User] u ON ub.UserID=u.ID
+    WHERE (r.Content LIKE '%$SearchCotent$%' OR t.[Content] LIKE  '%$SearchCotent$%') AND u.ID=#UserID# AND t.Enabled=1)
+
+  </select>
   </statements>
 </sqlMap>

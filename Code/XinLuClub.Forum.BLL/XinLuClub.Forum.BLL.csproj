@@ -41,6 +41,9 @@
     <Reference Include="netstandard">
       <HintPath>..\commondll\netstandard.dll</HintPath>
     </Reference>
+    <Reference Include="SOAFramework.Library.Context">
+      <HintPath>..\commondll\SOAFramework.Library.Context.dll</HintPath>
+    </Reference>
     <Reference Include="SOAFramework.Library.DAL">
       <HintPath>..\commondll\SOAFramework.Library.DAL.dll</HintPath>
     </Reference>
@@ -51,9 +54,6 @@
     <Reference Include="SOAFramework.Library.IDGenerator, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\commondll\SOAFramework.Library.IDGenerator.dll</HintPath>
-    </Reference>
-    <Reference Include="SOAFramework.Library.Session">
-      <HintPath>..\commondll\SOAFramework.Library.Session.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -75,9 +75,9 @@
     <Compile Include="XinLuClubException.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\XinLuClub.Forum.DLL\XinLuClub.Forum.DLL.csproj">
+    <ProjectReference Include="..\XinLuClub.Forum.DAL\XinLuClub.Forum.DAL.csproj">
       <Project>{83096c92-95ef-4d80-b0fe-6002c71aad31}</Project>
-      <Name>XinLuClub.Forum.DLL</Name>
+      <Name>XinLuClub.Forum.DAL</Name>
     </ProjectReference>
     <ProjectReference Include="..\XinLuClub.Forum.Entity\XinLuClub.Forum.Entity.csproj">
       <Project>{8C264244-D172-4CEB-ADAB-35A63B013B6E}</Project>

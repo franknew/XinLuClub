@@ -4,10 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using XinLuClub.Forum.DLL.Dao;
-using XinLuClub.Forum.DLL.Entity;
-using XinLuClub.Forum.DLL.Form;
 using SOAFramework.Library;
+using XinLuClub.Forum.DAL;
 
 namespace XinLuClub.Forum.BLL
 {
@@ -19,7 +17,7 @@ namespace XinLuClub.Forum.BLL
             UserDao userDao = new UserDao(mapper);
             var repeateUser = userDao.Query(new UserQueryForm { Name = user.Name }).FirstOrDefault();
             if (repeateUser != null) throw new XinLuClubException(402, "用户名已存在");
-            var userID = userDao.Add(user);
+            var result = userDao.Add(user);
             if (user.Boards != null)
             {
                 User_BoardGroupDao ubdao = new User_BoardGroupDao(mapper);
@@ -27,14 +25,14 @@ namespace XinLuClub.Forum.BLL
                 {
                     User_BoardGroup ub = new User_BoardGroup
                     {
-                        UserID = userID,
+                        UserID = result.ID,
                         BoardGroupID = t.ID,
                     };
                     ubdao.Add(ub);
                 });
             }
 
-            return userID;
+            return result.ID;
         }
 
         public bool UpdatePassword(UserPassword userPassword)

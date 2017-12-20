@@ -5,9 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using XinLuClub.Forum.DLL.Dao;
-using XinLuClub.Forum.DLL.Entity;
-using XinLuClub.Forum.DLL.Form;
+using XinLuClub.Forum.DAL;
 
 namespace XinLuClub.Forum.BLL
 {
@@ -35,7 +33,7 @@ namespace XinLuClub.Forum.BLL
 
                 groups = tgdao.Query(new BoardGroupQueryForm { IDs = groupIDs, Enabled = true, OrderBy = OrderBy.DESC, OrderByColumn = "LastUpdateTime" });
 
-                topicinfos = topicbll.GetFullTopicList(new TopicQueryForm { PageSize = pageSize, CurrentIndex = 1, OwnerID = me.ID, OrderBy = OrderBy.DESC, OrderByColumn = "LastUpdateTime", Enabled = true });
+                topicinfos = topicbll.GetFullTopicList(new TopicQueryForm { PageSize = pageSize, CurrentIndex = 1, OrderBy = OrderBy.DESC, OrderByColumn = "LastUpdateTime", OwnerID = me.ID });
             }
             IndexPage page = new IndexPage
             {

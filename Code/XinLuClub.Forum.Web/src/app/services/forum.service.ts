@@ -150,4 +150,40 @@ export class ForumService {
         failed.push(this.loginService.getLoginFailedNotify(this.cookie));
         this.ajax.DoGet(url, {}, success, failed);
     }
+
+    search(searchContent: string, success: NotifyModel[], failed: NotifyModel[] = []) {
+        let url = "/api/Index/SearchMyTopic";
+        failed.push(this.loginService.getLoginFailedNotify(this.cookie));
+        this.ajax.DoGet(url, { searchContent: searchContent }, success, failed);
+    }
+
+    deleteTopic(topicID: string, success: NotifyModel[], failed: NotifyModel[] = []) {
+        let url = "/api/Topic/DeleteTopic";
+        failed.push(this.loginService.getLoginFailedNotify(this.cookie));
+        this.ajax.DoGet(url, { topicID: topicID }, success, failed);
+    }
+
+    getMyTopicList(pageSize: number, currentPageIndex: number, success: NotifyModel[], failed: NotifyModel[] = []) {
+        let url = "/api/Topic/MyTopicList";
+        failed.push(this.loginService.getLoginFailedNotify(this.cookie));
+        this.ajax.DoGet(url, { pageSize: pageSize, currentPageIndex: currentPageIndex }, success, failed);
+    }
+
+    getMyUnreadReplyCount(success: NotifyModel[], failed: NotifyModel[] = []) {
+        let url = "/api/Topic/GetMyUnreadReplyCount";
+        failed.push(this.loginService.getLoginFailedNotify(this.cookie));
+        this.ajax.DoGet(url, { }, success, failed);
+    }
+
+    getReplyDetailList(replyID: string, success: NotifyModel[], failed: NotifyModel[] = []) {
+        let url = "/api/Topic/GetReplyDetailList";
+        failed.push(this.loginService.getLoginFailedNotify(this.cookie));
+        this.ajax.DoGet(url, { replyID: replyID }, success, failed);
+    }
+
+    getMyReplies(pageSize: number,  currentPageIndex: number, success: NotifyModel[], failed: NotifyModel[] = []) {
+        let url = "/api/Topic/GetMyReply";
+        failed.push(this.loginService.getLoginFailedNotify(this.cookie));
+        this.ajax.DoGet(url, { pageSize: pageSize, currentPageIndex: currentPageIndex }, success, failed);
+    }
 }

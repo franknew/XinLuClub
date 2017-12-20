@@ -4,10 +4,12 @@ using System.Linq;
 using System.Text;
 using SOAFramework.Library.DAL;
 
-namespace XinLuClub.Forum.DLL.Form
+namespace XinLuClub.Forum.DAL
 {
     public partial class User_TopicGroupQueryForm : BaseQueryForm
     {
+        public string ID { get; set; }
+        
         public List<string> IDs { get; set;}
         public string UserID { get; set; }
         

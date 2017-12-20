@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <sqlMap namespace="Topic" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
   <alias>
-    <typeAlias alias="Topic" type="XinLuClub.Forum.DLL.Entity.Topic" />
-    <typeAlias alias="TopicQueryForm" type="XinLuClub.Forum.DLL.Form.TopicQueryForm" />
-    <typeAlias alias="TopicUpdateForm" type="XinLuClub.Forum.DLL.Form.TopicUpdateForm" />
+    <typeAlias alias="Topic" type="XinLuClub.Forum.DAL.Topic" />
+    <typeAlias alias="TopicQueryForm" type="XinLuClub.Forum.DAL.TopicQueryForm" />
+    <typeAlias alias="TopicUpdateForm" type="XinLuClub.Forum.DAL.TopicUpdateForm" />
   </alias>
   <statements>
   <select id="Query" resultClass="Topic" parameterClass="TopicQueryForm">
@@ -215,83 +215,83 @@
         </isNotNull>
     </dynamic>
     <dynamic prepend="WHERE">
-    <isNotEmpty prepend="AND" property="QueryForm.ID">
+    <isNotNull prepend="AND" property="QueryForm.ID">
         [ID]=#QueryForm.ID#
-    </isNotEmpty>
+    </isNotNull>
     
-        <isNotEmpty prepend="AND"  property="QueryForm.IDs">
+        <isNotNull prepend="AND"  property="QueryForm.IDs">
         <iterate property="QueryForm.IDs" open="(" close=")" conjunction="OR">
          [ID]=#QueryForm.IDs[]#
         </iterate>
-    </isNotEmpty>
-    <isNotEmpty prepend="AND" property="QueryForm.Name">
+    </isNotNull>
+    <isNotNull prepend="AND" property="QueryForm.Name">
         [Name] LIKE '%$QueryForm.Name$%'
-    </isNotEmpty>
+    </isNotNull>
     
-    <isNotEmpty prepend="AND" property="QueryForm.Content">
+    <isNotNull prepend="AND" property="QueryForm.Content">
         [Content] LIKE '%$QueryForm.Content$%'
-    </isNotEmpty>
+    </isNotNull>
     
-    <isNotEmpty prepend="AND" property="QueryForm.CreateTime_Start">
+    <isNotNull prepend="AND" property="QueryForm.CreateTime_Start">
         [CreateTime]&gt;=#QueryForm.CreateTime_Start#
-    </isNotEmpty>
-    <isNotEmpty prepend="AND" property="QueryForm.CreateTime_End">
+    </isNotNull>
+    <isNotNull prepend="AND" property="QueryForm.CreateTime_End">
         [CreateTime]&lt;=#QueryForm.CreateTime_End#
-    </isNotEmpty>
+    </isNotNull>
     
-    <isNotEmpty prepend="AND" property="QueryForm.LastUpdateTime_Start">
+    <isNotNull prepend="AND" property="QueryForm.LastUpdateTime_Start">
         [LastUpdateTime]&gt;=#QueryForm.LastUpdateTime_Start#
-    </isNotEmpty>
-    <isNotEmpty prepend="AND" property="QueryForm.LastUpdateTime_End">
+    </isNotNull>
+    <isNotNull prepend="AND" property="QueryForm.LastUpdateTime_End">
         [LastUpdateTime]&lt;=#QueryForm.LastUpdateTime_End#
-    </isNotEmpty>
+    </isNotNull>
     
-    <isNotEmpty prepend="AND" property="QueryForm.OwnerID">
+    <isNotNull prepend="AND" property="QueryForm.OwnerID">
         [OwnerID]=#QueryForm.OwnerID#
-    </isNotEmpty>
+    </isNotNull>
     
-        <isNotEmpty prepend="AND"  property="QueryForm.OwnerIDs">
+        <isNotNull prepend="AND"  property="QueryForm.OwnerIDs">
         <iterate property="QueryForm.OwnerIDs" open="(" close=")" conjunction="OR">
          [OwnerID]=#QueryForm.OwnerIDs[]#
         </iterate>
-    </isNotEmpty>
-    <isNotEmpty prepend="AND" property="QueryForm.LastReplierID">
+    </isNotNull>
+    <isNotNull prepend="AND" property="QueryForm.LastReplierID">
         [LastReplierID]=#QueryForm.LastReplierID#
-    </isNotEmpty>
+    </isNotNull>
     
-        <isNotEmpty prepend="AND"  property="QueryForm.LastReplierIDs">
+        <isNotNull prepend="AND"  property="QueryForm.LastReplierIDs">
         <iterate property="QueryForm.LastReplierIDs" open="(" close=")" conjunction="OR">
          [LastReplierID]=#QueryForm.LastReplierIDs[]#
         </iterate>
-    </isNotEmpty>
-    <isNotEmpty prepend="AND" property="QueryForm.ReplyCount_Start">
+    </isNotNull>
+    <isNotNull prepend="AND" property="QueryForm.ReplyCount_Start">
         [ReplyCount]&gt;=#QueryForm.ReplyCount_Start#
-    </isNotEmpty>
-    <isNotEmpty prepend="AND" property="QueryForm.ReplyCount_End">
+    </isNotNull>
+    <isNotNull prepend="AND" property="QueryForm.ReplyCount_End">
         [ReplyCount]&lt;=#QueryForm.ReplyCount_End#
-    </isNotEmpty>
+    </isNotNull>
     
-    <isNotEmpty prepend="AND" property="QueryForm.TopicGroupID">
+    <isNotNull prepend="AND" property="QueryForm.TopicGroupID">
         [TopicGroupID]=#QueryForm.TopicGroupID#
-    </isNotEmpty>
+    </isNotNull>
     
-        <isNotEmpty prepend="AND"  property="QueryForm.TopicGroupIDs">
+        <isNotNull prepend="AND"  property="QueryForm.TopicGroupIDs">
         <iterate property="QueryForm.TopicGroupIDs" open="(" close=")" conjunction="OR">
          [TopicGroupID]=#QueryForm.TopicGroupIDs[]#
         </iterate>
-    </isNotEmpty>
-    <isNotEmpty prepend="AND" property="QueryForm.BoardGroupID">
+    </isNotNull>
+    <isNotNull prepend="AND" property="QueryForm.BoardGroupID">
         [BoardGroupID]=#QueryForm.BoardGroupID#
-    </isNotEmpty>
+    </isNotNull>
     
-        <isNotEmpty prepend="AND"  property="QueryForm.BoardGroupIDs">
+        <isNotNull prepend="AND"  property="QueryForm.BoardGroupIDs">
         <iterate property="QueryForm.BoardGroupIDs" open="(" close=")" conjunction="OR">
          [BoardGroupID]=#QueryForm.BoardGroupIDs[]#
         </iterate>
-    </isNotEmpty>
-    <isNotEmpty prepend="AND" property="QueryForm.Enabled">
+    </isNotNull>
+    <isNotNull prepend="AND" property="QueryForm.Enabled">
         [Enabled]=#QueryForm.Enabled#
-    </isNotEmpty>
+    </isNotNull>
     
     </dynamic>
   </update>

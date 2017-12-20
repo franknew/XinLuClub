@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <sqlMap namespace="User_TopicGroup" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
   <alias>
-    <typeAlias alias="User_TopicGroup" type="XinLuClub.Forum.DLL.Entity.User_TopicGroup" />
-    <typeAlias alias="User_TopicGroupQueryForm" type="XinLuClub.Forum.DLL.Form.User_TopicGroupQueryForm" />
-    <typeAlias alias="User_TopicGroupUpdateForm" type="XinLuClub.Forum.DLL.Form.User_TopicGroupUpdateForm" />
+    <typeAlias alias="User_TopicGroup" type="XinLuClub.Forum.DAL.User_TopicGroup" />
+    <typeAlias alias="User_TopicGroupQueryForm" type="XinLuClub.Forum.DAL.User_TopicGroupQueryForm" />
+    <typeAlias alias="User_TopicGroupUpdateForm" type="XinLuClub.Forum.DAL.User_TopicGroupUpdateForm" />
   </alias>
   <statements>
   <select id="Query" resultClass="User_TopicGroup" parameterClass="User_TopicGroupQueryForm">
@@ -79,33 +79,33 @@
         </isNotNull>
     </dynamic>
     <dynamic prepend="WHERE">
-    <isNotEmpty prepend="AND" property="QueryForm.ID">
+    <isNotNull prepend="AND" property="QueryForm.ID">
         [ID]=#QueryForm.ID#
-    </isNotEmpty>
+    </isNotNull>
     
-        <isNotEmpty prepend="AND"  property="QueryForm.IDs">
+        <isNotNull prepend="AND"  property="QueryForm.IDs">
         <iterate property="QueryForm.IDs" open="(" close=")" conjunction="OR">
          [ID]=#QueryForm.IDs[]#
         </iterate>
-    </isNotEmpty>
-    <isNotEmpty prepend="AND" property="QueryForm.UserID">
+    </isNotNull>
+    <isNotNull prepend="AND" property="QueryForm.UserID">
         [UserID]=#QueryForm.UserID#
-    </isNotEmpty>
+    </isNotNull>
     
-        <isNotEmpty prepend="AND"  property="QueryForm.UserIDs">
+        <isNotNull prepend="AND"  property="QueryForm.UserIDs">
         <iterate property="QueryForm.UserIDs" open="(" close=")" conjunction="OR">
          [UserID]=#QueryForm.UserIDs[]#
         </iterate>
-    </isNotEmpty>
-    <isNotEmpty prepend="AND" property="QueryForm.TopicGroupID">
+    </isNotNull>
+    <isNotNull prepend="AND" property="QueryForm.TopicGroupID">
         [TopicGroupID]=#QueryForm.TopicGroupID#
-    </isNotEmpty>
+    </isNotNull>
     
-        <isNotEmpty prepend="AND"  property="QueryForm.TopicGroupIDs">
+        <isNotNull prepend="AND"  property="QueryForm.TopicGroupIDs">
         <iterate property="QueryForm.TopicGroupIDs" open="(" close=")" conjunction="OR">
          [TopicGroupID]=#QueryForm.TopicGroupIDs[]#
         </iterate>
-    </isNotEmpty>
+    </isNotNull>
     </dynamic>
   </update>
   

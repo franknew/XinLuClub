@@ -44,6 +44,10 @@ import { AjaxComponent } from './components/ajax/ajax.component';
 import { LoginResult } from './entities/loginResult';
 import { Timer } from './components/timer/timer.component';
 import { TopicGroup } from './entities/topicGroup';
+import { SearchpageComponent } from './components/client/searchpage/searchpage.component';
+import { MytopicsComponent } from './components/client/mytopics/mytopics.component';
+import { MynewestreplyComponent } from './components/client/mynewestreply/mynewestreply.component';
+import { ReplydetaillistComponent } from './components/client/replydetaillist/replydetaillist.component';
 
 @NgModule({
   declarations: [
@@ -83,6 +87,10 @@ import { TopicGroup } from './entities/topicGroup';
     ForumService,
     TopicGroup,
     TopicdetailComponent,
+    SearchpageComponent,
+    MytopicsComponent,
+    MynewestreplyComponent,
+    ReplydetaillistComponent,
   ],
   imports: [
     BrowserModule,

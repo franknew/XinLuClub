@@ -11,6 +11,10 @@ import { TopicdetailComponent } from './components/client/topicdetail/topicdetai
 import { AdminpageComponent } from './components/admin/adminpage/adminpage.component';
 import { UserComponent } from './components/admin/user/user.component';
 import { BoardgroupComponent } from './components/admin/boardgroup/boardgroup.component';
+import { SearchpageComponent } from './components/client/searchpage/searchpage.component';
+import { MytopicsComponent } from './components/client/mytopics/mytopics.component';
+import { MynewestreplyComponent } from './components/client/mynewestreply/mynewestreply.component';
+import { ReplydetaillistComponent } from './components/client/replydetaillist/replydetaillist.component';
 
 const routes: Routes = [
     { path: 'login', component: LoginpageComponent },
@@ -38,6 +42,16 @@ const routes: Routes = [
         component: BoardtopiclistComponent,
       },
       {
+        path: 'replydetaillist/:id',
+        outlet: 'forum',
+        component: ReplydetaillistComponent,
+      },
+      {
+        path: 'mynewestreplies',
+        outlet: 'forum',
+        component: MynewestreplyComponent,
+      },
+      {
         path: 'topicdetail/:id',
         outlet: 'forum',
         component: TopicdetailComponent,
@@ -55,6 +69,21 @@ const routes: Routes = [
         outlet: 'forum',
         component: ActivetopiclistComponent,
         
+      },
+      {
+        path: 'search',
+        outlet: 'forum',
+        component: SearchpageComponent,
+      },
+      {
+        path: 'mytopics',
+        outlet: 'forum',
+        component: MytopicsComponent,
+      },
+      {
+        path: 'mynewestreply',
+        outlet: 'forum',
+        component: MynewestreplyComponent,
       },
       {
         path: '',
@@ -89,7 +118,6 @@ const routes: Routes = [
       path: 'activelist',
       outlet: 'forum',
       component: ActivetopiclistComponent,
-      
     },
     { path: '', component: IndexComponent},
     { path: '**', component: IndexComponent },

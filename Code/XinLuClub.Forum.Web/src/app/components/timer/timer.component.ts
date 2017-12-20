@@ -7,11 +7,28 @@ import { NotifyModel } from '../ajax/NotifyModel';
     template: '',
 })
 export class Timer {
-    interval: number = 100;
-    Start(notify: NotifyModel) {
+    id: string;
+    interval: number = 1000;
+    private stopped: boolean = false;
+    notify: NotifyModel;
+
+    constructor(id: string, notify: NotifyModel, interval: number = 100) {
+        this.id = id;
+        this.notify = notify;
+        this.interval = interval;
+    }
+
+    Start() {
+        this.stopped = false;
         setTimeout(()=> {
-            if (notify != null) notify.Notify([]);
-            this.Start(notify);
+            if (!this.stopped) {
+                if (this.notify != null) this.notify.Notify([]);
+                this.Start();
+            }
         }, this.interval);
+    }
+
+    Stop() {
+        this.stopped = true;
     }
 }

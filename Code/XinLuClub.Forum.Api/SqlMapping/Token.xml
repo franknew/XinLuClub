@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <sqlMap namespace="Token" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
   <alias>
-    <typeAlias alias="Token" type="XinLuClub.Forum.DLL.Entity.Token" />
-    <typeAlias alias="TokenQueryForm" type="XinLuClub.Forum.DLL.Form.TokenQueryForm" />
-    <typeAlias alias="TokenUpdateForm" type="XinLuClub.Forum.DLL.Form.TokenUpdateForm" />
+    <typeAlias alias="Token" type="XinLuClub.Forum.DAL.Token" />
+    <typeAlias alias="TokenQueryForm" type="XinLuClub.Forum.DAL.TokenQueryForm" />
+    <typeAlias alias="TokenUpdateForm" type="XinLuClub.Forum.DAL.TokenUpdateForm" />
   </alias>
   <statements>
   <select id="Query" resultClass="Token" parameterClass="TokenQueryForm">
@@ -148,52 +148,52 @@
         </isNotNull>
     </dynamic>
     <dynamic prepend="WHERE">
-    <isNotEmpty prepend="AND" property="QueryForm.ID">
+    <isNotNull prepend="AND" property="QueryForm.ID">
         [ID]=#QueryForm.ID#
-    </isNotEmpty>
+    </isNotNull>
     
-        <isNotEmpty prepend="AND"  property="QueryForm.IDs">
+        <isNotNull prepend="AND"  property="QueryForm.IDs">
         <iterate property="QueryForm.IDs" open="(" close=")" conjunction="OR">
          [ID]=#QueryForm.IDs[]#
         </iterate>
-    </isNotEmpty>
-    <isNotEmpty prepend="AND" property="QueryForm.AccessToken">
+    </isNotNull>
+    <isNotNull prepend="AND" property="QueryForm.AccessToken">
         [AccessToken]=#QueryForm.AccessToken#
-    </isNotEmpty>
+    </isNotNull>
     
-    <isNotEmpty prepend="AND" property="QueryForm.CreateTime_Start">
+    <isNotNull prepend="AND" property="QueryForm.CreateTime_Start">
         [CreateTime]&gt;=#QueryForm.CreateTime_Start#
-    </isNotEmpty>
-    <isNotEmpty prepend="AND" property="QueryForm.CreateTime_End">
+    </isNotNull>
+    <isNotNull prepend="AND" property="QueryForm.CreateTime_End">
         [CreateTime]&lt;=#QueryForm.CreateTime_End#
-    </isNotEmpty>
+    </isNotNull>
     
-    <isNotEmpty prepend="AND" property="QueryForm.LastUpdateTime_Start">
+    <isNotNull prepend="AND" property="QueryForm.LastUpdateTime_Start">
         [LastUpdateTime]&gt;=#QueryForm.LastUpdateTime_Start#
-    </isNotEmpty>
-    <isNotEmpty prepend="AND" property="QueryForm.LastUpdateTime_End">
+    </isNotNull>
+    <isNotNull prepend="AND" property="QueryForm.LastUpdateTime_End">
         [LastUpdateTime]&lt;=#QueryForm.LastUpdateTime_End#
-    </isNotEmpty>
+    </isNotNull>
     
-    <isNotEmpty prepend="AND" property="QueryForm.Enabled">
+    <isNotNull prepend="AND" property="QueryForm.Enabled">
         [Enabled]=#QueryForm.Enabled#
-    </isNotEmpty>
+    </isNotNull>
     
-    <isNotEmpty prepend="AND" property="QueryForm.UserID">
+    <isNotNull prepend="AND" property="QueryForm.UserID">
         [UserID]=#QueryForm.UserID#
-    </isNotEmpty>
+    </isNotNull>
     
-        <isNotEmpty prepend="AND"  property="QueryForm.UserIDs">
+        <isNotNull prepend="AND"  property="QueryForm.UserIDs">
         <iterate property="QueryForm.UserIDs" open="(" close=")" conjunction="OR">
          [UserID]=#QueryForm.UserIDs[]#
         </iterate>
-    </isNotEmpty>
-    <isNotEmpty prepend="AND" property="QueryForm.ExpiredTime_Start">
+    </isNotNull>
+    <isNotNull prepend="AND" property="QueryForm.ExpiredTime_Start">
         [ExpiredTime]&gt;=#QueryForm.ExpiredTime_Start#
-    </isNotEmpty>
-    <isNotEmpty prepend="AND" property="QueryForm.ExpiredTime_End">
+    </isNotNull>
+    <isNotNull prepend="AND" property="QueryForm.ExpiredTime_End">
         [ExpiredTime]&lt;=#QueryForm.ExpiredTime_End#
-    </isNotEmpty>
+    </isNotNull>
     
     </dynamic>
   </update>

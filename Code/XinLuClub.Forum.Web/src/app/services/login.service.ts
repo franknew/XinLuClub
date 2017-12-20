@@ -9,6 +9,7 @@ import { User } from '../entities/user';
 import { ClientService } from './client.service';
 import { ActivatedRoute } from '@angular/router/src/router_state';
 import { Router } from '@angular/router/src/router';
+import { TimerPool } from '../components/timer/timerPool.component';
 
 
 @Component({
@@ -28,6 +29,7 @@ export class LoginService {
     }
 
     logout() {
+        TimerPool.stop();
         this.client.removeToken();
         this.client.RedirectToLogin();
     }

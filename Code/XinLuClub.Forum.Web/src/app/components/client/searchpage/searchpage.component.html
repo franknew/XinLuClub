@@ -1,0 +1,11 @@
+<div nz-row class="panel-body">
+    <div nz-col [nzSpan]="3">
+        <nz-input [(ngModel)]="searchContent"></nz-input>
+    </div>
+    <div nz-col [nzSpan]="1">
+        <button nz-button (click)="search()">
+            <span>搜索</span>
+        </button>
+    </div>
+</div>
+<topiclist [DisplayPagination]="false" (OnRefresh)="search()" [Records]="records" [Loading]="loading" [DisplayRefresh]="false"></topiclist>

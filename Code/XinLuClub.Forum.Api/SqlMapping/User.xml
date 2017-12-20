@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <sqlMap namespace="User" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
   <alias>
-    <typeAlias alias="User" type="XinLuClub.Forum.DLL.Entity.User" />
-    <typeAlias alias="UserQueryForm" type="XinLuClub.Forum.DLL.Form.UserQueryForm" />
-    <typeAlias alias="UserUpdateForm" type="XinLuClub.Forum.DLL.Form.UserUpdateForm" />
+    <typeAlias alias="User" type="XinLuClub.Forum.DAL.User" />
+    <typeAlias alias="UserQueryForm" type="XinLuClub.Forum.DAL.UserQueryForm" />
+    <typeAlias alias="UserUpdateForm" type="XinLuClub.Forum.DAL.UserUpdateForm" />
   </alias>
   <statements>
   <select id="Query" resultClass="User" parameterClass="UserQueryForm">
@@ -188,60 +188,60 @@
         </isNotNull>
     </dynamic>
     <dynamic prepend="WHERE">
-    <isNotEmpty prepend="AND" property="QueryForm.ID">
+    <isNotNull prepend="AND" property="QueryForm.ID">
         [ID]=#QueryForm.ID#
-    </isNotEmpty>
+    </isNotNull>
     
-        <isNotEmpty prepend="AND"  property="QueryForm.IDs">
+        <isNotNull prepend="AND"  property="QueryForm.IDs">
         <iterate property="QueryForm.IDs" open="(" close=")" conjunction="OR">
          [ID]=#QueryForm.IDs[]#
         </iterate>
-    </isNotEmpty>
-    <isNotEmpty prepend="AND" property="QueryForm.Name">
-      [Name]=#Name#
-    </isNotEmpty>
+    </isNotNull>
+    <isNotNull prepend="AND" property="QueryForm.Name">
+        [Name] LIKE '%$QueryForm.Name$%'
+    </isNotNull>
     
-    <isNotEmpty prepend="AND" property="QueryForm.Gender">
+    <isNotNull prepend="AND" property="QueryForm.Gender">
         [Gender]=#QueryForm.Gender#
-    </isNotEmpty>
+    </isNotNull>
     
-    <isNotEmpty prepend="AND" property="QueryForm.IdentityCode">
+    <isNotNull prepend="AND" property="QueryForm.IdentityCode">
         [IdentityCode]=#QueryForm.IdentityCode#
-    </isNotEmpty>
+    </isNotNull>
     
-    <isNotEmpty prepend="AND" property="QueryForm.Mobile">
+    <isNotNull prepend="AND" property="QueryForm.Mobile">
         [Mobile] LIKE '%$QueryForm.Mobile$%'
-    </isNotEmpty>
+    </isNotNull>
     
-    <isNotEmpty prepend="AND" property="QueryForm.Enabled">
+    <isNotNull prepend="AND" property="QueryForm.Enabled">
         [Enabled]=#QueryForm.Enabled#
-    </isNotEmpty>
+    </isNotNull>
     
-    <isNotEmpty prepend="AND" property="QueryForm.CreateTime_Start">
+    <isNotNull prepend="AND" property="QueryForm.CreateTime_Start">
         [CreateTime]&gt;=#QueryForm.CreateTime_Start#
-    </isNotEmpty>
-    <isNotEmpty prepend="AND" property="QueryForm.CreateTime_End">
+    </isNotNull>
+    <isNotNull prepend="AND" property="QueryForm.CreateTime_End">
         [CreateTime]&lt;=#QueryForm.CreateTime_End#
-    </isNotEmpty>
+    </isNotNull>
     
-    <isNotEmpty prepend="AND" property="QueryForm.IsAdmin">
+    <isNotNull prepend="AND" property="QueryForm.IsAdmin">
         [IsAdmin]=#QueryForm.IsAdmin#
-    </isNotEmpty>
+    </isNotNull>
     
-    <isNotEmpty prepend="AND" property="QueryForm.RealName">
+    <isNotNull prepend="AND" property="QueryForm.RealName">
         [RealName]=#QueryForm.RealName#
-    </isNotEmpty>
+    </isNotNull>
     
-    <isNotEmpty prepend="AND" property="QueryForm.WeiXin">
+    <isNotNull prepend="AND" property="QueryForm.WeiXin">
         [WeiXin]=#QueryForm.WeiXin#
-    </isNotEmpty>
+    </isNotNull>
     
-    <isNotEmpty prepend="AND" property="QueryForm.LastUpdateTime_Start">
+    <isNotNull prepend="AND" property="QueryForm.LastUpdateTime_Start">
         [LastUpdateTime]&gt;=#QueryForm.LastUpdateTime_Start#
-    </isNotEmpty>
-    <isNotEmpty prepend="AND" property="QueryForm.LastUpdateTime_End">
+    </isNotNull>
+    <isNotNull prepend="AND" property="QueryForm.LastUpdateTime_End">
         [LastUpdateTime]&lt;=#QueryForm.LastUpdateTime_End#
-    </isNotEmpty>
+    </isNotNull>
     
     </dynamic>
   </update>
@@ -258,7 +258,7 @@
         </iterate>
         </isNotEmpty>
     <isNotEmpty prepend="AND" property="Name">
-      [Name]=#Name#
+        [Name] LIKE '%$Name$%'
     </isNotEmpty>
     
     <isNotEmpty prepend="AND" property="Gender">

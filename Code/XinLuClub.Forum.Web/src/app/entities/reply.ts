@@ -16,5 +16,5 @@ export class Reply extends BaseEntity {
     ReplyToID: string;
     ReplyTo: string;
     ReplyID: string;
-
+    IsRead: boolean = true;
 }

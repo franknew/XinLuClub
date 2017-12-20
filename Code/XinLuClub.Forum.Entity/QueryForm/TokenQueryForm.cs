@@ -4,12 +4,26 @@ using System.Linq;
 using System.Text;
 using SOAFramework.Library.DAL;
 
-namespace XinLuClub.Forum.DLL.Form
+namespace XinLuClub.Forum.DAL
 {
-    public partial class TokenQueryForm : SimpleQueryForm
+    public partial class TokenQueryForm : BaseQueryForm
     {
+        public string ID { get; set; }
+        
         public List<string> IDs { get; set;}
         public string AccessToken { get; set; }
+        
+        public DateTime? CreateTime { get; set; }
+        
+        public DateTime? CreateTime_Start { get; set; }
+        
+        public DateTime? CreateTime_End { get; set; }
+        
+        public DateTime? LastUpdateTime { get; set; }
+        
+        public DateTime? LastUpdateTime_Start { get; set; }
+        
+        public DateTime? LastUpdateTime_End { get; set; }
         
         public Boolean? Enabled { get; set; }
         

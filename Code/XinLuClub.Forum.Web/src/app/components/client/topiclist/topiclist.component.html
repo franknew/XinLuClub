@@ -1,9 +1,10 @@
-<div nz-row class="panel-body">
+<div *ngIf="displayRefresh" nz-row class="panel-body">
     <button nz-button (click)="refresh($event)">
         <span>刷新</span>
     </button>
 </div>
-<nz-table #nzTable [nzDataSource]="records" [nzBordered]="true" [nzIsPagination]="false" [nzShowTitle]="false" [nzLoading]="loading">
+<nz-table #nzTable [nzDataSource]="records" [nzAjaxData]="records" [nzBordered]="true" [(nzPageSize)]="pageSize" (nzPageSizeChange)="pageIndexChanged('1')" [nzIsPagination]="true" nzShowSizeChanger [nzShowTitle]="false" [nzLoading]="loading" [(nzPageIndex)]="currentPageIndex"
+    (nzPageIndexChange)="pageIndexChanged(currentPageIndex)">
     <tbody nz-tbody>
         <tr nz-tbody-tr *ngFor="let item of records">
             <td nz-td>
@@ -24,4 +25,4 @@
         </tr>
     </tbody>
 </nz-table>
-<nz-pagination *ngIf="records.length>0" [nzTotal]="recordCount" [nzPageIndex]="currentPageIndex" (nzPageIndexClickChange)="pageIndexChanged($event)" [nzPageSize]="pageSize"></nz-pagination>
+<br>

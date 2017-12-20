@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.26730.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XinLuClub.Forum.Entity", "XinLuClub.Forum.Entity\XinLuClub.Forum.Entity.csproj", "{8C264244-D172-4CEB-ADAB-35A63B013B6E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XinLuClub.Forum.DLL", "XinLuClub.Forum.DLL\XinLuClub.Forum.DLL.csproj", "{83096C92-95EF-4D80-B0FE-6002C71AAD31}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XinLuClub.Forum.DAL", "XinLuClub.Forum.DAL\XinLuClub.Forum.DAL.csproj", "{83096C92-95EF-4D80-B0FE-6002C71AAD31}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XinLuClub.Forum.BLL", "XinLuClub.Forum.BLL\XinLuClub.Forum.BLL.csproj", "{9555C00F-3C4F-4B60-8CE8-A31CCA1B925D}"
 EndProject
