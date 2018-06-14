@@ -10,7 +10,6 @@ import { NotifyModel } from './NotifyModel';
         NotifyModel,
     ],
     imports: [
-        AjaxComponent,
     ],
     providers: [
     ],

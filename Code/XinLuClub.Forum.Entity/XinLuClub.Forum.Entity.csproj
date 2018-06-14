@@ -7,8 +7,8 @@
     <ProjectGuid>{8C264244-D172-4CEB-ADAB-35A63B013B6E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>XinLuClub.Forum.DLL.Entity</RootNamespace>
-    <AssemblyName>XinLuClub.Forum.DLL.Entity</AssemblyName>
+    <RootNamespace>XinLuClub.Forum.DAL.Entity</RootNamespace>
+    <AssemblyName>XinLuClub.Forum.DAL.Entity</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

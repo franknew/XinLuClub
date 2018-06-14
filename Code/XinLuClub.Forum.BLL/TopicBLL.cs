@@ -270,6 +270,11 @@ namespace XinLuClub.Forum.BLL
         {
             var mappper = Common.GetMapper();
             TopicDao dao = new TopicDao(mappper);
+            dao.Update(new TopicUpdateForm
+            {
+                Entity = new Topic { Enabled = 0 },
+                QueryForm = form,
+            });
             return dao.Delete(form);
         }
 

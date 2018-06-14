@@ -85,7 +85,7 @@ namespace XinLuClub.Forum.Api.Controllers
         public bool DeleteTopic(string topicID)
         {
             if (topicID == null) throw new XinLuClubException(400, "topicID不能为空");
-            return bll.DeleteTopic(new TopicQueryForm { TopicGroupID = topicID });
+            return bll.DeleteTopic(new TopicQueryForm { ID = topicID });
         }
 
         [AcceptVerbs("GET", "POST")]

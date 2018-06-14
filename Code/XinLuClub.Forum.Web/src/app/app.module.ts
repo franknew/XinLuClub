@@ -18,7 +18,6 @@ import { Reply } from './entities/reply';
 import { User } from './entities/user';
 import { Token } from './entities/token';
 import { Topic } from './entities/topic';
-import { TopicgrouplistComponent } from './components/client/topicgrouplist/topicgrouplist.component';
 import { TopicgroupmenuComponent } from './components/client/topicgroupmenu/topicgroupmenu.component';
 import { TopiclistComponent } from './components/client/topiclist/topiclist.component';
 import { BoardtopiclistComponent } from './components/client/boardtopiclist/boardtopiclist.component';
@@ -55,7 +54,6 @@ import { ReplydetaillistComponent } from './components/client/replydetaillist/re
     IndexComponent,
     HeadBannerComponent,
     forumpageComponent,
-    TopicgrouplistComponent,
     TopicgroupmenuComponent,
     TopiclistComponent,
     BoardtopiclistComponent,

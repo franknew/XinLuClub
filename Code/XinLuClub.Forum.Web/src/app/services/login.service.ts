@@ -35,7 +35,7 @@ export class LoginService {
     }
     
     getLoginFailedNotify(cookie: CookieService): NotifyModel {
-       let loginFailed = new NotifyModel();
+        let loginFailed = new NotifyModel();
         loginFailed.args = [this];
         loginFailed.callback = (error, sender)=> {
             if (error.status == 401) this.logout();

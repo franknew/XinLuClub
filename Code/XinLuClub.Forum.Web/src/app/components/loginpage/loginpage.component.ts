@@ -80,4 +80,10 @@ export class LoginpageComponent {
         this.modal.destroy('onOk');
         this.modal = null;
     }
+
+    keyPress(event: KeyboardEvent) {
+        if (event.keyCode == 13) {
+            this.login();
+        }
+    }
 }

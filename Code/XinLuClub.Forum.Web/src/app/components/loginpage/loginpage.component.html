@@ -30,7 +30,7 @@
             <span>密码</span>
         </div>
         <div nz-col [nzSpan]="18">
-            <nz-input [(ngModel)]="password" nzType="password" [nzPlaceHolder]="'请输入密码'">
+            <nz-input [(ngModel)]="password" nzType="password" [nzPlaceHolder]="'请输入密码'" (keydown)="keyPress($event)">
 
                 <ng-template #prefix>
                     <i class="anticon anticon-key"></i>
